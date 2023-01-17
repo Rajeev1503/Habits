@@ -128,7 +128,7 @@ export async function getServerSideProps(ctx) {
   }
 
  const data = await fetchHelper(
-    `http://localhost:3000/api/${session?.user?._id}/tasklisttypes`,
+    `https://taskify-tau-nine.vercel.app/api/${session?.user?._id}/tasklisttypes`,
     "GET"
   )
 
