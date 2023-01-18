@@ -6,7 +6,7 @@ import { CurrentTaskListTypeContext } from "../../context/CurrentTaskListTypeCon
 import { TaskListContext } from "../../context/TaskListContext";
 import PageMenu from "../display_layout/page-menu";
 import Card from "./card";
-
+import { NEXT_URL } from '../../../../config/index';
 export default function TaskList(props) {
   const [taskLists, setTaskLists] = useState([]);
   const { data: session } = useSession();
@@ -21,7 +21,7 @@ export default function TaskList(props) {
 
   function fetchHandler() {
     fetchHelper(
-      `http://localhost:3000/api/userId/tasklists`,
+      `/api/userId/tasklists`,
       "GET"
     )
       .then((data) => {

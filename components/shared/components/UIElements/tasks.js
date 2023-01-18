@@ -4,6 +4,7 @@ import Card from "../UIElements/card";
 import { TaskListContext } from "../../context/TaskListContext";
 import { AllTaskContext } from "../../context/AllTaskContext";
 import { TaskContext } from "../../context/TaskContext";
+import { NEXT_URL } from "../../../../config/index";
 export default function Tasks(props) {
   // const [allTasks , setAllTasks] = useState([]);
   const taskListContext = useContext(TaskListContext);
@@ -19,7 +20,7 @@ export default function Tasks(props) {
 
   function fetchHandler() {
     fetchHelper(
-      `http://localhost:3000/api/tasklist/${taskListContext.taskList._id}/tasks`,
+      `/api/tasklist/${taskListContext.taskList._id}/tasks`,
       "GET"
     )
       .then((data) => {
