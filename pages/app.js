@@ -120,8 +120,8 @@ export async function getServerSideProps(ctx) {
   if (!session) {
     return {
       redirect: {
-        destination: "/",
-        permanent: false,
+        // destination: "/",
+        // permanent: false,
       },
     };
   }
