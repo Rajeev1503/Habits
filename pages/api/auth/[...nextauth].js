@@ -43,6 +43,7 @@ export default NextAuth({
         }
 
         if(bcrypt.compareSync(credentials.password, user.password)){
+          console.log(user);
           return user;
         }
         
