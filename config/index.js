@@ -1,2 +1,2 @@
 export const NEXT_URL =
-  process.env.NEXT_URL || "http://localhost:3000";
+"https://taskify-app-amber.vercel.app/" || "http://localhost:3000";
