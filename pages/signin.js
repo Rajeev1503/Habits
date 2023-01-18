@@ -18,16 +18,13 @@ const SignIn = () => {
 
   useEffect(()=>{
     console.log("useEffect")
-    if(!session?.user)
+    if(session?.user)
     {
         console.log("not session useEffect session")
-        return
-      }
-
-        console.log("not session useEffect session")
         router.push(redirect || '/app');
+    }
 
-  },[router, session, redirect])
+  },[router])
 
   
   const onSubmitHandler = async (e) => {
