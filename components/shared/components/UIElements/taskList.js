@@ -13,7 +13,7 @@ export default function TaskList(props) {
   const currentTaskListType = useContext(CurrentTaskListTypeContext);
 
   useEffect(() => {
-    if(session) {
+    if(!session) {
 
       fetchHandler();
     }
@@ -21,7 +21,7 @@ export default function TaskList(props) {
 
   function fetchHandler() {
     fetchHelper(
-      `http://localhost:3000/api/${session?.user?._id}/tasklists`,
+      `http://localhost:3000/api/userId/tasklists`,
       "GET"
     )
       .then((data) => {
