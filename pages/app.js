@@ -14,12 +14,11 @@ import { TaskContext } from "../components/shared/context/TaskContext";
 import fetchHelper from "../helpers/fetch-helper";
 import { TaskListTypeContext } from "../components/shared/context/TaskListTypeContext";
 import { useRouter } from "next/router";
+import { NEXT_URL } from '../config/index';
 
 export default function MainApp(props) {
 
   const taskListTypeContext = useContext(TaskListTypeContext)
-
-
   
   const { data : session } = useSession();
 
@@ -128,10 +127,10 @@ export async function getServerSideProps(ctx) {
   }
 
  const data = await fetchHelper(
-    `http://localhost:3000/api/${session?.user?._id}/tasklisttypes`,
+    `${NEXT_URL}/api/${session?.user?._id}/tasklisttypes`,
     "GET"
   )
-
+  console.log(NEXT_URL)
     const allTaskListTypes = JSON.parse(data)
 
   return {

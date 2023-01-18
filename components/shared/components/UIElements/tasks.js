@@ -100,8 +100,8 @@ export default function Tasks(props) {
                     </div>
                     <div
                       className={`${
-                        task._id === taskContext?.task?._id ? "" : "hidden"
-                      } ${displayDetailedTask? 'hidden' : ''} text-xs font-semibold mt-8 bg-darktext rounded-lg p-4`}
+                        task._id !== taskContext?.task?._id ? 'hidden' : displayDetailedTask? 'hidden' : 'false'
+                      } text-xs font-semibold mt-8 bg-darktext rounded-lg p-4`}
                     >
                       <div>
                         <p>
