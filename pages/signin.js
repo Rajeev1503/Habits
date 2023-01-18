@@ -14,13 +14,16 @@ const SignIn = () => {
 
   const router = useRouter();
   const { data : session } = useSession();
+  const { redirect } = router.query;
 
   useEffect(()=>{
-      if(session?.user)
-      {
-        router.push('/app');
+    console.log("useEffect")
+    if(session?.user)
+    {
+        console.log("inside useEffect session")
+        router.push(redirect || '/app');
       }
-  },[router, session])
+  },[router, session, redirect])
 
   
   const onSubmitHandler = async (e) => {
@@ -37,11 +40,13 @@ const SignIn = () => {
         callbackUrl: '/'
       })
       if(result.error){
-        throw new Error("Login failed message from frontend : " + responseData.message);
+        console.log("next auth result error")
+        throw new Error("Login failed message from signin page nextauth : " + responseData.message);
       }
       
     } catch (error) {
-      console.log("error login : " + error);
+      console.log("next auth catch error")
+      console.log("error login nextauth : " + error);
       return;
     }
   

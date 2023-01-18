@@ -18,7 +18,7 @@ const LeftSideMenu = (props) => {
           <ul className="w-full flex flex-col gap-5 font-semibold text-sm">
             {taskListType?.allTaskListType?.map((taskListType)=>{
               return (
-            <li className="border border-light rounded-lg shadow-2xl p-2 block cursor-pointer" onClick={()=>{currentTaskListType.setCurrentTaskListType(taskListType)}}>
+            <li key={taskListType.name} className="border border-light rounded-lg shadow-2xl p-2 block cursor-pointer" onClick={()=>{currentTaskListType.setCurrentTaskListType(taskListType)}}>
               {taskListType.name}
             </li>
               )
