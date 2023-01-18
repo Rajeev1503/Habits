@@ -13,10 +13,10 @@ export default function TaskList(props) {
   const currentTaskListType = useContext(CurrentTaskListTypeContext);
 
   useEffect(() => {
-    if(!session) {
+    // if(!session) {
 
-      fetchHandler();
-    }
+    // }
+    fetchHandler();
   }, [currentTaskListType?.currentTaskListType]);
 
   function fetchHandler() {
