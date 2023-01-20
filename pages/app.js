@@ -129,7 +129,7 @@ export async function getServerSideProps(ctx) {
   // }
 
  const data = await fetchHelper(
-    `${NEXT_URL}api/userId/tasklisttypes`,
+    `http://localhost:3000/api/userId/tasklisttypes`,
     "GET"
   )
     const allTaskListTypes = JSON.parse(data)
