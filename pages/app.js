@@ -129,7 +129,7 @@ export async function getServerSideProps(ctx) {
   // }
 
  const data = await fetchHelper(
-    `http://localhost:3000/api/userId/tasklisttypes`,
+    `https://taskify-app.vercel.app/api/userId/tasklisttypes`,
     "GET"
   )
     const allTaskListTypes = JSON.parse(data)
