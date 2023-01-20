@@ -7,7 +7,7 @@ export default NextAuth({
   session: {
     jwt: true,
   },
-
+  secret: process.env.NEXT_PUBLIC_SECRET,
   providers: [
     CredentialsProvider({
       async authorize(credentials) {
