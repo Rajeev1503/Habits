@@ -15,6 +15,7 @@ import fetchHelper from "../helpers/fetch-helper";
 import { TaskListTypeContext } from "../components/shared/context/TaskListTypeContext";
 import { useRouter } from "next/router";
 import { NEXT_URL } from '../config/index';
+import dbConnect from "../database/database";
 
 export default function MainApp(props) {
 
@@ -116,6 +117,7 @@ export default function MainApp(props) {
 }
 
 export async function getServerSideProps(ctx) {
+  await dbConnect();
   const session = await getSession(ctx);
   if (!session) {
     return {
@@ -125,6 +127,7 @@ export async function getServerSideProps(ctx) {
       },
     };
   }
+
  const data = await fetchHelper(
     `${NEXT_URL}/api/userId/tasklisttypes`,
     "GET"
