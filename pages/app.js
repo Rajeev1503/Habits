@@ -118,15 +118,15 @@ export default function MainApp(props) {
 
 export async function getServerSideProps(ctx) {
   await dbConnect();
-  const session = await getSession(ctx);
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
+  // const session = await getSession(ctx);
+  // if (!session) {
+  //   return {
+  //     redirect: {
+  //       destination: "/",
+  //       permanent: false,
+  //     },
+  //   };
+  // }
 
  const data = await fetchHelper(
     `${NEXT_URL}api/userId/tasklisttypes`,
