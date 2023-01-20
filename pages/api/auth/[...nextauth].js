@@ -5,21 +5,12 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from 'bcryptjs'
 export default NextAuth({
   session: {
-    jwt: true,
+     strategy: "jwt" 
   },
   secret: process.env.NEXT_PUBLIC_SECRET,
   providers: [
     CredentialsProvider({
-      credentials:{
-        usernameoremail : {
-          label: 'usernameoremail',
-          type: 'text'
-        },
-        password: {
-          label:'password',
-          type:'password'
-        }
-      },
+      name: 'Credentials',
       async authorize(credentials) {
         await dbConnect();
         let user = await UserModel.findOne({
@@ -36,15 +27,17 @@ export default NextAuth({
             strength: 2,
           });
           if (!user) {
-            throw new Error("Invalid Username or Password");
+            return null;
           }
         }
 
-        if(bcrypt.compareSync(credentials?.password, user.password)){
-          return user;
+        else{
+          if(bcrypt.compareSync(credentials?.password, user.password)){
+            return user;
+          }
+          return null;
         }
         
-        return;
       },
     }),
   ],

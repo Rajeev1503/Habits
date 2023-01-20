@@ -1,2 +1,2 @@
 export const NEXT_URL =
- process.env.NEXTAUTH_URL || "http://localhost:3000/";
+ process.env.NEXT_URL || "http://localhost:3000/";
