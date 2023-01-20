@@ -42,15 +42,10 @@ export default function Tasks(props) {
 
   const [displayDetailedTask, setDisplayDetailedTask] = useState(false);
 
-  return (
-    <div className="w-full" style={{ height: "70vh" }}>
-      <p className={`${loading?'':'hidden'}`}>loading...</p>
-      {allTasksContext?.allTasksState?.length === 0 ? (
-        <h1 className="text-white">No Tasks Found</h1>
-      ) : (
-        <p></p>
-      )}
-      <div className=" grid grid-cols-2 auto-rows-auto gap-5 p-2">
+
+  function PageData () {
+    return (
+<div className=" grid grid-cols-2 auto-rows-auto gap-5 p-2">
         {allTasksContext?.allTasksState?.map((task) => {
           return (
             <div
@@ -170,6 +165,16 @@ export default function Tasks(props) {
         <br />
         <br />
       </div>
+    )
+  }
+
+
+  return (
+    <div className="w-full" style={{ height: "70vh" }}>
+      <p className={`${loading?'':'hidden'}`}>loading...</p>
+      <h1 className="text-white">{allTasksContext.allTasksState.length === 0}</h1>
+        {allTasksContext.allTasksState.length>0? <PageData /> : <p className="text-white">No Tasks Found</p>}
+      
     </div>
   );
 }
