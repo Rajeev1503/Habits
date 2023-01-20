@@ -13,12 +13,16 @@ export default function Tasks(props) {
   // const [allTasks, setAllTasks] = useState(allTasksContext?.allTasks)
 
   // const {allTasksState, allTasksDispatch} = AllTaskState();
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
+    setLoading(true)
     fetchHandler();
+    setLoading(false);
   }, [taskListContext?.taskList]);
 
   function fetchHandler() {
+
     fetchHelper(
       `/api/tasklist/${taskListContext.taskList._id}/tasks`,
       "GET"
@@ -41,6 +45,7 @@ export default function Tasks(props) {
 
   return (
     <div className="w-full" style={{ height: "70vh" }}>
+      <p className={`${loading?'':'hidden'}`}>loading...</p>
       {allTasksContext?.allTasksState?.length === 0 ? (
         <h1 className="text-white">No Tasks Found</h1>
       ) : (

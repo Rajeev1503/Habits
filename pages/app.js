@@ -13,7 +13,6 @@ import TaskList from "../components/shared/components/UIElements/taskList";
 import { TaskContext } from "../components/shared/context/TaskContext";
 import fetchHelper from "../helpers/fetch-helper";
 import { TaskListTypeContext } from "../components/shared/context/TaskListTypeContext";
-import { useRouter } from "next/router";
 import { NEXT_URL } from '../config/index';
 import dbConnect from "../database/database";
 
