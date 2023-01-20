@@ -135,7 +135,7 @@ export default SignIn;
 
 export async function getServerSideProps(ctx) {
   const session = await getSession(ctx);
-  if (session) {
+  if (session?.user) {
     return {
       redirect: {
         destination: "/app",
