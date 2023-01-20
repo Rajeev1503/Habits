@@ -10,17 +10,27 @@ export default NextAuth({
   secret: process.env.NEXT_PUBLIC_SECRET,
   providers: [
     CredentialsProvider({
+      credentials:{
+        usernameoremail : {
+          label: 'usernameoremail',
+          type: 'text'
+        },
+        password: {
+          label:'password',
+          type:'password'
+        }
+      },
       async authorize(credentials) {
         await dbConnect();
         let user = await UserModel.findOne({
-          username: credentials.usernameoremail,
+          username: credentials?.usernameoremail,
         }).collation({
           locale: "en",
           strength: 2,
         });
         if (!user) {
           user = await UserModel.findOne({
-            email: credentials.usernameoremail,
+            email: credentials?.usernameoremail,
           }).collation({
             locale: "en",
             strength: 2,
@@ -30,11 +40,11 @@ export default NextAuth({
           }
         }
 
-        if(bcrypt.compareSync(credentials.password, user.password)){
+        if(bcrypt.compareSync(credentials?.password, user.password)){
           return user;
         }
         
-        throw new Error("Invalid Username or Password");
+        return;
       },
     }),
   ],

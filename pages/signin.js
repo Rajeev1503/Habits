@@ -84,7 +84,7 @@ const SignIn = () => {
               element="input"
               type="text"
               placeholder="username or email"
-              lable="Email"
+              lable="usernameoremail"
               errorText="Required"
               validators="REQUIRE"
               onInput={inputHandler}
@@ -94,7 +94,7 @@ const SignIn = () => {
               element="input"
               type="password"
               placeholder="Enter New Password"
-              lable="Enter New Password"
+              lable="password"
               errorText="Password length should be minimum 8 characters"
               validators="REQUIRE"
               onInput={inputHandler}
