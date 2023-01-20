@@ -3,6 +3,8 @@ import fetchHelper from "../../../../helpers/fetch-helper";
 import { AllTaskContext } from "../../context/AllTaskContext";
 import { TaskContext } from "../../context/TaskContext";
 import { FaAngleDown } from "react-icons/fa";
+import { FaAngleUp } from "react-icons/fa";
+import ChatBox from "../chatBox";
 
 const RightPageMenu = (props) => {
   const taskContext = useContext(TaskContext);
@@ -69,7 +71,8 @@ const RightPageMenu = (props) => {
       "";
   }
 
-  const [editDisplayHandler, setEditDisplayHandler] = useState("hidden");
+  const [editDisplayHandler, setEditDisplayHandler] = useState(false);
+  const [chatBoxToggle, setChatBoxToggle] = useState(true);
 
   return (
     <div>
@@ -116,26 +119,24 @@ const RightPageMenu = (props) => {
         </div>
       </div>
       <br />
-      <br />
       <div
         className="w-full cursor-pointer bg-card-dark p-1 px-2 rounded-lg font-semibold text-sm flex flex-row justify-between items-center gap-3 mb-2"
         onClick={() => {
-          editDisplayHandler
-            ? setEditDisplayHandler("")
-            : setEditDisplayHandler("hidden");
+          setChatBoxToggle(true);
+         setEditDisplayHandler(!editDisplayHandler);
         }}
       >
        <span>Edit Task</span>  <span><FaAngleDown /></span>
       </div>
       <form
-        className={`flex flex-col gap-2 font-semibold bg-card-dark px-2 rounded-lg p-2 ${editDisplayHandler}`}
+        className={`flex flex-col gap-2 font-semibold bg-card-dark px-2 rounded-lg p-2 text-xs ${editDisplayHandler?'' : 'hidden'}`}
         onSubmit={(e) => {
           e.preventDefault();
           formSubmitHandler();
         }}
       >
         <input
-          className="border border-border-light rounded-lg shadow-2xl p-1 bg-transparent"
+          className="flex-grow max-w-full rounded-lg p-1 bg-transparent border border-border-light"
           id="taskname"
           type="text"
           placeholder="Task Name"
@@ -146,7 +147,7 @@ const RightPageMenu = (props) => {
           value={updatedTaskName}
         />
         <input
-          className="border border-border-light rounded-lg shadow-2xl p-1 bg-transparent"
+          className="flex-grow max-w-full rounded-lg p-1 bg-transparent border border-border-light"
           id="taskdescription"
           element="input"
           type="text"
@@ -157,7 +158,7 @@ const RightPageMenu = (props) => {
           }}
           value={updatedTaskDesc}
         />
-        <div className="w-full flex flex-row gap-2 justify-center items-center text-sm text-center text-darktext">
+        <div className="w-full flex flex-row gap-2 justify-center items-center text-xs text-center text-darktext">
           <button
             type="submit"
             className=" bg-button-light p-1 rounded-lg flex-grow"
@@ -174,6 +175,29 @@ const RightPageMenu = (props) => {
           </button>
         </div>
       </form>
+      <div className="bg-accent-background p-2 rounded-lg text-xs font-semibold" style={{position:'absolute', bottom:'1rem', width:'340px', right:'0.75rem'}}>
+      <ChatBox>
+        <div className={`${chatBoxToggle?'hidden' : ''} flex flex-col gap-3 pb-3`} style={{height:'350px'}}>
+          <div className="border border-border-dark rounded-lg " style={{height:'90%'}}>
+
+          </div>
+            <div className="flex flex-row gap-3 px-3">
+              <input className="max-w-full flex-grow rounded-lg p-1 bg-transparent border border-border-light"
+          type="text"
+          placeholder="Message"/>
+          <button
+            type="submit"
+            className=" max-w-fit px-2 text-darktext bg-button-light p-1 rounded-lg flex-grow"
+          >
+            Send
+          </button>
+            </div>
+        </div>
+        <div className="w-full flex flex-row justify-between items-center" onClick={()=>{setChatBoxToggle(!chatBoxToggle); setEditDisplayHandler(false);}}>
+        <span>Chat Box</span>  <span><FaAngleUp /></span>
+        </div>
+      </ChatBox>
+      </div>
     </div>
   );
 };

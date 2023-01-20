@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 const PageMenu = (props) => {
-  return <div className="">{props.children}</div>;
+  return <>{props.children}</>
 };
 
 export default PageMenu;

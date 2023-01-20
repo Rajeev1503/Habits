@@ -8,7 +8,9 @@ module.exports = {
     
     extend: {
       colors: {
-        'main-background' : '#181818',
+        'app-background' : '#181818',
+        'main-background' : 'black',
+        'accent-background' : '#181818',
         'display-layout-light': '#000000',
         'navbar-light' : '#131313',
         'card-light' : '#131313',
@@ -28,7 +30,7 @@ module.exports = {
         'graybackground' : '#ededed'
       },
       fontSize: {
-        'xxs': '0.6rem',
+        'xxs': '0.63rem',
     },
     },
   },

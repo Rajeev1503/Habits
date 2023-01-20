@@ -8,18 +8,13 @@ const LeftSideMenu = (props) => {
   const taskListType = useContext(TaskListTypeContext);
   const currentTaskListType = useContext(CurrentTaskListTypeContext);
   return (
-      <div className="text-lighttext">
-        <div className="w-full absolute top-0  left-0 text-sm font-bold text-center flex justify-center items-center pt-2">
-        <Link href="/"><h2>TODO APP</h2></Link>
-      </div>
-      <br />
-      <br />
-        <div className="p-3">
+    <div  className="flex flex-col justify-center items-center overflow-y-auto h-full pt-8 text-sm">
+        <div className="w-full">
           <ul className="w-full flex flex-col gap-5 font-semibold text-sm">
             {taskListType?.allTaskListType?.map((taskListType)=>{
               return (
-            <li key={taskListType.name} className="border border-light rounded-lg shadow-2xl p-2 block cursor-pointer" onClick={()=>{currentTaskListType.setCurrentTaskListType(taskListType)}}>
-              {taskListType.name}
+            <li key={taskListType.name} className="block bg-accent-background rounded-lg p-2 cursor-pointer" onClick={()=>{currentTaskListType.setCurrentTaskListType(taskListType)}}>
+              <p className="hover:scale-105">{taskListType.name}</p>
             </li>
               )
             })}  

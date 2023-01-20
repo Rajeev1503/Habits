@@ -13,21 +13,21 @@ import TaskList from "../components/shared/components/UIElements/taskList";
 import { TaskContext } from "../components/shared/context/TaskContext";
 import fetchHelper from "../helpers/fetch-helper";
 import { TaskListTypeContext } from "../components/shared/context/TaskListTypeContext";
-import { NEXT_URL } from '../config/index';
+import { NEXT_URL } from "../config/index";
 import dbConnect from "../database/database";
+import LeftSideMenu from "../components/shared/components/display_layout/leftsidemenu";
+import Navigation from "../components/shared/components/Navigation/Navigation";
 
 export default function MainApp(props) {
+  const taskListTypeContext = useContext(TaskListTypeContext);
 
-  const taskListTypeContext = useContext(TaskListTypeContext)
-  
-  const { data : session } = useSession();
+  const { data: session } = useSession();
 
-  useEffect(()=>{
-      if(session?.user)
-      {
-        taskListTypeContext.setAllTaskListType(props.allTaskListTypes)
-      }
-  },[session])
+  useEffect(() => {
+    if (session?.user) {
+      taskListTypeContext.setAllTaskListType(props.allTaskListTypes);
+    }
+  }, [session]);
 
   const [rightPageMenuContent, setRightPageMenuContent] = useState();
   const [buttonDisplay, setButtonDisplay] = useState("none");
@@ -41,14 +41,12 @@ export default function MainApp(props) {
   const taskListContext = useContext(TaskListContext);
   const taskContext = useContext(TaskContext);
 
-  function updateRightPageMenuHandler () {
-    setRightPageMenuContent(<></>)
+  function updateRightPageMenuHandler() {
+    setRightPageMenuContent(<></>);
   }
 
   function setTaskHandler() {
-    return setRightPageMenuContent(
-      <RightPageMenu />
-      );
+    return setRightPageMenuContent(<RightPageMenu />);
   }
 
   function showTasksHandler() {
@@ -67,8 +65,6 @@ export default function MainApp(props) {
     taskListContext.setTaskList(tasklist);
     showTasksHandler();
   }
-  
-
 
   return (
     <Layout title="Home" pageHeading="Team Tasks">
@@ -77,23 +73,32 @@ export default function MainApp(props) {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <div
-        className="flex flex-row justify-center gap-2 h-screen"
-        style={{ height: "91vh" }}
+        className="flex flex-col gap-2 text-white"
+        style={{ height: "99vh", width: "99.2%", margin:'auto auto' }}
       >
-        <TaskList renderTaskPage={renderTaskPage} />
-        <div className="w-full py-4 px-1 flex justify-center items-center bg-display-layout-light rounded-lg shadow-md ">
+        <div className="bg-main-background p-3 rounded-lg shadow-md" style={{width:'100%',margin:'auto auto' }}>
+          <Navigation />
+        </div>
+
+        <div className="flex flex-row justify-center gap-2" style={{width:'100%'}}>
           <div
-            className="scrollbarfeature overflow-y-scroll px-4"
-            style={{ height: "82vh", width: "100%" }}
+            className=" bg-main-background p-2 rounded-lg shadow-md"
+            style={{ height: "91vh", width: "12%" }}
           >
+            <LeftSideMenu />
+          </div>
+          <div className="bg-main-background p-2 rounded-lg shadow-md" style={{ height: "91vh", width: "20%"  }}>
+            <TaskList renderTaskPage={renderTaskPage} />
+          </div>
+          <div className="bg-main-background p-2 px-3 rounded-lg shadow-md" style={{ height: "91vh" , width: "50%" }}>
             <CenterLayout>
-              <div className="flex flex-col">
+              <div className="flex flex-col overflow-y-scroll" style={{height:'100%'}}>
                 <div className="">
                   <span className="text-xs font-bold text-lightgray">
                     1st January 2023
                   </span>
                 </div>
-                <br/>
+                <br />
                 <div className="items-center">
                   <button className="max-w-max bg-button-light p-1 px-2 rounded-lg text-xs text-center text-darktext font-semibold mb-4">
                     Add New Task
@@ -103,12 +108,15 @@ export default function MainApp(props) {
               </div>
             </CenterLayout>
           </div>
-          <br></br>
-        </div>
-        <div className="w-2/5 px-3  h-full bg-display-layout-light rounded-lg shadow-md pt-8">
-          <PageMenu>
-            <div className="">{rightPageMenuContent}</div>
-          </PageMenu>
+
+          <div
+            className="px-2 h-full bg-main-background rounded-lg"
+            style={{ height: "91vh", width: "25%"  }}
+          >
+            <PageMenu>
+              <div className="mt-4">{rightPageMenuContent}</div>
+            </PageMenu>
+          </div>
         </div>
       </div>
     </Layout>
@@ -116,7 +124,6 @@ export default function MainApp(props) {
 }
 
 export async function getServerSideProps(ctx) {
-  
   const session = await getSession(ctx);
   if (!session) {
     return {
@@ -126,16 +133,13 @@ export async function getServerSideProps(ctx) {
       },
     };
   }
-await dbConnect();
- const data = await fetchHelper(
-    `${NEXT_URL}/api/userId/tasklisttypes`,
-    "GET"
-  )
-    const allTaskListTypes = JSON.parse(data)
+  await dbConnect();
+  const data = await fetchHelper(`${NEXT_URL}/api/userId/tasklisttypes`, "GET");
+  const allTaskListTypes = JSON.parse(data);
 
   return {
     props: {
-      allTaskListTypes
+      allTaskListTypes,
     },
   };
 }
