@@ -7,25 +7,12 @@ import { FaGoogle } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
 import { FaList } from "react-icons/fa";
 import { useForm } from "../components/shared/hooks/form-hook";
-import { signIn, useSession } from 'next-auth/react'
-import { useEffect } from "react";
+import { signIn } from 'next-auth/react'
+// import { useEffect } from "react";
 import { useRouter } from "next/router";
 const SignIn = () => {
 
   const router = useRouter();
-  const { data : session } = useSession();
-  const { redirect } = router.query;
-
-  useEffect(()=>{
-    console.log("useEffect")
-    if(session?.user)
-    {
-        console.log("not session useEffect session")
-        router.push(redirect || '/app');
-    }
-
-  },[router])
-
   
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -38,17 +25,13 @@ const SignIn = () => {
         redirect: false,
         usernameoremail: newUserHandler.usernameoremail,
         password: newUserHandler.password,
-        callbackUrl: '/'
       })
-      if(result.error){
-        console.log("next auth result error")
-        throw new Error("Login failed message from signin page nextauth : " + responseData.message);
+      if(!result.error){
+        router.replace('/app');
       }
       
     } catch (error) {
-      console.log("next auth catch error")
-      console.log("error login nextauth : " + error);
-      return;
+      throw new Error("Login failed message from signin page nextauth : " + error);
     }
   
   };

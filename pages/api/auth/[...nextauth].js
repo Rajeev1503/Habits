@@ -5,19 +5,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from 'bcryptjs'
 export default NextAuth({
   session: {
-    strategy: "jwt",
-  },
-
-  callbacks: {
-    async jwt({ token, user }) {
-      if (user?._id) token._id = user._id;
-      return token;
-    },
-
-    async session({ session, token }) {
-      if (token?._id) session.user._id = token._id;
-      return session;
-    },
+    jwt: true,
   },
 
   providers: [
@@ -43,7 +31,6 @@ export default NextAuth({
         }
 
         if(bcrypt.compareSync(credentials.password, user.password)){
-          console.log(user);
           return user;
         }
         

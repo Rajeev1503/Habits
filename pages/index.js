@@ -1,3 +1,4 @@
+import { getSession } from "next-auth/react";
 import SignIn from "./signin";
 import SignUp from "./signup";
 
@@ -9,3 +10,19 @@ return (<>
 </>
 )
 }
+
+export async function getServerSideProps(ctx) {
+    const session = await getSession(ctx);
+    if (session) {
+      return {
+        redirect: {
+          destination: "/app",
+          permanent: false,
+        },
+      };
+    }
+  
+    return {
+      props: {},
+    };
+  }
