@@ -118,16 +118,13 @@ export default function MainApp(props) {
 export async function getServerSideProps(ctx) {
   const session = await getSession(ctx);
   if (!session) {
-    console.log("session not found")
     return {
       redirect: {
         destination: "/",
-        permanent: true,
+        permanent: false,
       },
     };
   }
-  
-  console.log("session found")
  const data = await fetchHelper(
     `${NEXT_URL}/api/userId/tasklisttypes`,
     "GET"
