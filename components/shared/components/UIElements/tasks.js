@@ -16,25 +16,24 @@ export default function Tasks(props) {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    setLoading(true)
+    
     fetchHandler();
-    setLoading(false);
+    
   }, [taskListContext?.taskList]);
 
   function fetchHandler() {
-
+    setLoading(true)
     fetchHelper(
       `/api/tasklist/${taskListContext.taskList._id}/tasks`,
       "GET"
     )
       .then((data) => {
         const tasks = JSON.parse(data);
-        // console.log(tasks)
-        // console.log(allTasksState)
-        return allTasksContext.allTasksDispatch({
+        allTasksContext.allTasksDispatch({
           type: "addtasks",
           payload: tasks,
         });
+        return setLoading(false);
       })
       .catch((err) => {
         console.log(err + ": error");
