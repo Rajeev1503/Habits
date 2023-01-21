@@ -10,19 +10,15 @@ import { useForm } from "../components/shared/hooks/form-hook";
 import { getSession, signIn } from "next-auth/react";
 // import { useEffect } from "react";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+
 const SignIn = () => {
   const router = useRouter();
 
-  // useEffect(() => {
-  //   getSession().then((session) => {
-  //     if (session) {
-  //       router.replace("/app");
-  //     } else return;
-  //   });
-  // }, [router]);
+const [signInLoading, setSignInLoading] = useState(false)
 
   const onSubmitHandler = async (e) => {
+    setSignInLoading(true);
     e.preventDefault();
     const newUserHandler = {
       usernameoremail: formState.inputs.usernameoremail.value,
@@ -35,6 +31,7 @@ const SignIn = () => {
         password: newUserHandler.password,
       });
       if (!result.error) {
+        setSignInLoading(false);
         router.replace("/app");
       }
     } catch (error) {
@@ -60,6 +57,7 @@ const SignIn = () => {
 
   return (
     <div className="flex flex-col rounded-lg bg-main-background p-5 w-3/6 max-h-min">
+      {signInLoading?<div className="text-white">Loading...</div>: ''}
       <div className="text-lighttext flex flex-col gap-2 items-center font-semibold" >
         {/* <div className="text-center">
           <FaList size={40} />
