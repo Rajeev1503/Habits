@@ -31,10 +31,11 @@ const [signInLoading, setSignInLoading] = useState(false)
         password: newUserHandler.password,
       });
       if (!result.error) {
-        setSignInLoading(false);
         router.replace("/app");
+        setSignInLoading(false);
       }
     } catch (error) {
+      setSignInLoading(false);
       throw new Error(
         "Login failed message from signin page nextauth : " + error
       );
