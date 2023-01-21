@@ -37,7 +37,7 @@ export default function Tasks(props) {
     <div className="w-full">
       <p className={`${loading ? "" : "hidden"}`}>loading...</p>
       {allTasksContext?.allTasksState?.length === 0 ? (
-        <h1 className="text-white">No Tasks Found</h1>
+        <h1>No Tasks Found</h1>
       ) : (
         ""
       )}
@@ -56,6 +56,7 @@ export default function Tasks(props) {
                 className="cursor-pointer"
                 onClick={() => {
                   taskContext.setTask(task);
+                  setDisplayDetailedTask(!displayDetailedTask)
                   return props.setTaskHandler(task);
                 }}
               >
@@ -163,8 +164,8 @@ export default function Tasks(props) {
                         setDisplayDetailedTask(!displayDetailedTask);
                       }}
                     >
-                      {displayDetailedTask ? (<span>Expand</span>)
-                         : task._id === taskContext?.task?._id ?<span>Hide</span>: ''
+                      {displayDetailedTask ? <p></p>
+                         : task._id === taskContext?.task?._id ?<span>Hide</span>: <p></p>
                       }
                     </p>
                   </div>

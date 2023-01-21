@@ -5,7 +5,7 @@ import PageMenu from "../components/shared/components/display_layout/page-menu";
 import CenterLayout from "../components/shared/components/display_layout/center-layout";
 import Tasks from "../components/shared/components/UIElements/tasks";
 import Image from "next/image";
-import selecttasklist from "../public/selecttasklistsvg.svg";
+import selecttasklist from "../public/selecttasklist2.svg";
 import { getSession, useSession } from "next-auth/react";
 import RightPageMenu from "../components/shared/components/UIElements/rightPageMenu";
 import { TaskListContext } from "../components/shared/context/TaskListContext";
@@ -44,10 +44,6 @@ export default function MainApp(props) {
   const taskListContext = useContext(TaskListContext);
   const taskContext = useContext(TaskContext);
 
-  function updateRightPageMenuHandler() {
-    setRightPageMenuContent(<></>);
-  }
-
   function setTaskHandler() {
     return setRightPageMenuContent(<RightPageMenu />);
   }
@@ -74,30 +70,33 @@ export default function MainApp(props) {
     )
   }
 
+  const [toggleDarkMode, setToggleDarkMode] = useState(true)
+
   return (
     <Layout title="Home" pageHeading="Team Tasks">
         <Head>
     <title>Taskify</title>
   </Head>
+  <div className={`${toggleDarkMode?'bg-accent-background-dark text-lighttext': 'bg-accent-background-light text-darktext'}`} style={{height:'100vh'}}>
       <div
-        className="flex flex-col gap-2 text-lighttext"
+        className="flex flex-col gap-2"
         style={{ height: "99vh", width: "99.2%", margin:'auto auto' }}
       >
-        <div className="bg-main-background p-3 rounded-lg" style={{width:'100%',margin:'auto auto' }}>
-          <Navigation />
+        <div className={`${toggleDarkMode?'bg-main-background-dark': 'bg-main-background-light'} p-2 rounded-lg`} style={{width:'100%',margin:'auto auto' }}>
+          <Navigation setToggleDarkMode={setToggleDarkMode} toggleDarkMode={toggleDarkMode}/>
         </div>
 
         <div className="flex flex-row justify-center gap-2 " style={{width:'100%'}}>
           <div
-            className=" bg-main-background p-2 rounded-lg"
+            className={`${toggleDarkMode?'bg-main-background-dark': 'bg-main-background-light'} p-2 rounded-lg`}
             style={{ height: "90.5vh", width: "12%" }}
           >
             <LeftSideMenu renderTaskListPage={renderTaskListPage}/>
           </div>
-          <div className="bg-main-background p-2 rounded-lg" style={{ height: "90.5vh", width: "20%"  }}>
+          <div className={`${toggleDarkMode?'bg-main-background-dark': 'bg-main-background-light'} p-2 rounded-lg`} style={{ height: "90.5vh", width: "20%"  }}>
             {taskListPageData}
           </div>
-          <div className="bg-main-background p-2 px-3 rounded-lg shadow-md" style={{ height: "90.5vh" , width: "50%" }}>
+          <div className={`${toggleDarkMode?'bg-main-background-dark': 'bg-main-background-light'} p-2 rounded-lg`} style={{ height: "90.5vh" , width: "50%" }}>
             <CenterLayout>
               <div className="flex flex-col overflow-y-scroll" style={{height:'100%'}}>
                 <div className="">
@@ -117,7 +116,7 @@ export default function MainApp(props) {
           </div>
 
           <div
-            className="px-2 h-full bg-main-background rounded-lg"
+            className={`${toggleDarkMode?'bg-main-background-dark': 'bg-main-background-light'} p-2 rounded-lg`}
             style={{ height: "90.5vh", width: "25%"  }}
           >
             <PageMenu>
@@ -125,6 +124,7 @@ export default function MainApp(props) {
             </PageMenu>
           </div>
         </div>
+      </div>
       </div>
     </Layout>
   );

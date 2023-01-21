@@ -9,9 +9,10 @@ module.exports = {
     extend: {
       colors: {
         'app-background' : '#181818',
-        'main-background' : '#111111  ',
-        'accent-background' : '#181818',
-        'display-layout-light': '#000000',
+        'main-background-dark' : '#111111  ',
+        'main-background-light' : '#e2e4e4  ',
+        'accent-background-dark' : '#181818',
+        'accent-background-light' : '#e9e9e9',
         'navbar-light' : '#131313',
         'card-light' : '#131313',
         'card-dark' : '#181818',
@@ -24,7 +25,7 @@ module.exports = {
         'button-dark' : '#333333',
         'button-light' : '#c44242',
         'border-light': '#eff3f4',
-        'border-dark': '#333333',
+        'border-dark': '#222222',
         'border-notactive' : '#548CFF',
         'border-active' : '#D2001A',
         'graybackground' : '#ededed'

@@ -3,7 +3,7 @@ import NavLinks from "./NavLinks";
 const Navigation = (props) => {
   return (
     <div>
-      <NavLinks/>
+      <NavLinks setToggleDarkMode={props.setToggleDarkMode} toggleDarkMode={props.toggleDarkMode}/>
     </div>
   );
 };
