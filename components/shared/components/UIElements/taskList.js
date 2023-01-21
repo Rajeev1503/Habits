@@ -13,9 +13,6 @@ export default function TaskList(props) {
   const currentTaskListType = useContext(CurrentTaskListTypeContext);
 
   useEffect(() => {
-    // if(!session) {
-
-    // }
     fetchHandler();
   }, [currentTaskListType?.currentTaskListType]);
 
@@ -38,7 +35,7 @@ export default function TaskList(props) {
       <div className="flex flex-col gap-2 pt-8 px-2" style={{ height: "100%" }}>
         <div className="">
           <button
-            className="max-w-max bg-button-light p-1 px-2 rounded-lg text-center text-xs text-darktext font-semibold"
+            className="max-w-max bg-button-light p-1 px-2 rounded-lg text-center text-xs text-lighttext font-semibold"
             onClick={() => {
               setAddTaskListToggle(!addTaskListToggle);
             }}

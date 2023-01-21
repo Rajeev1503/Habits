@@ -38,6 +38,9 @@ export default function MainApp(props) {
       <Image src={selecttasklist} alt="Select Task List" />
     </div>
   );
+
+    const [taskListPageData, setTaskListPageData] =useState();
+
   const taskListContext = useContext(TaskListContext);
   const taskContext = useContext(TaskContext);
 
@@ -65,32 +68,36 @@ export default function MainApp(props) {
     taskListContext.setTaskList(tasklist);
     showTasksHandler();
   }
+  function renderTaskListPage() {
+    return setTaskListPageData(
+      <TaskList renderTaskPage={renderTaskPage}/>
+    )
+  }
 
   return (
     <Layout title="Home" pageHeading="Team Tasks">
-      <Head>
-        <title>HOME - TODO APP</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      </Head>
+        <Head>
+    <title>Taskify</title>
+  </Head>
       <div
-        className="flex flex-col gap-2 text-white"
+        className="flex flex-col gap-2 text-lighttext"
         style={{ height: "99vh", width: "99.2%", margin:'auto auto' }}
       >
-        <div className="bg-main-background p-3 rounded-lg shadow-md" style={{width:'100%',margin:'auto auto' }}>
+        <div className="bg-main-background p-3 rounded-lg" style={{width:'100%',margin:'auto auto' }}>
           <Navigation />
         </div>
 
-        <div className="flex flex-row justify-center gap-2" style={{width:'100%'}}>
+        <div className="flex flex-row justify-center gap-2 " style={{width:'100%'}}>
           <div
-            className=" bg-main-background p-2 rounded-lg shadow-md"
-            style={{ height: "91vh", width: "12%" }}
+            className=" bg-main-background p-2 rounded-lg"
+            style={{ height: "90.5vh", width: "12%" }}
           >
-            <LeftSideMenu />
+            <LeftSideMenu renderTaskListPage={renderTaskListPage}/>
           </div>
-          <div className="bg-main-background p-2 rounded-lg shadow-md" style={{ height: "91vh", width: "20%"  }}>
-            <TaskList renderTaskPage={renderTaskPage} />
+          <div className="bg-main-background p-2 rounded-lg" style={{ height: "90.5vh", width: "20%"  }}>
+            {taskListPageData}
           </div>
-          <div className="bg-main-background p-2 px-3 rounded-lg shadow-md" style={{ height: "91vh" , width: "50%" }}>
+          <div className="bg-main-background p-2 px-3 rounded-lg shadow-md" style={{ height: "90.5vh" , width: "50%" }}>
             <CenterLayout>
               <div className="flex flex-col overflow-y-scroll" style={{height:'100%'}}>
                 <div className="">
@@ -100,7 +107,7 @@ export default function MainApp(props) {
                 </div>
                 <br />
                 <div className="items-center">
-                  <button className="max-w-max bg-button-light p-1 px-2 rounded-lg text-xs text-center text-darktext font-semibold mb-4">
+                  <button className="max-w-max bg-button-light p-1 px-2 rounded-lg text-xs text-center text-lighttext font-semibold mb-4">
                     Add New Task
                   </button>
                   {centerPageData}
@@ -111,7 +118,7 @@ export default function MainApp(props) {
 
           <div
             className="px-2 h-full bg-main-background rounded-lg"
-            style={{ height: "91vh", width: "25%"  }}
+            style={{ height: "90.5vh", width: "25%"  }}
           >
             <PageMenu>
               <div className="mt-4">{rightPageMenuContent}</div>

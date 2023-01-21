@@ -1,13 +1,19 @@
 import { getSession } from "next-auth/react";
+import Head from "next/head";
+import Layout from "../components/layout/layout";
 import SignIn from "./signin";
 import SignUp from "./signup";
-
 export default function Home() {
-return (<>
-<div className="flex flex-row justify-center mt-8" style={{height:'100vh'}}>
+return (
+
+<Layout title="Signin">
+  <Head>
+    <title>Taskify</title>
+  </Head>
+  <div className="bg-[url('../public/bglines.png')] flex flex-col justify-center items-center backdrop-blur-sm" style={{height:'100vh'}}>
     <SignIn />
 </div>
-</>
+</Layout>
 )
 }
 

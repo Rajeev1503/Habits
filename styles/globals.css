@@ -15,10 +15,10 @@
 ::-webkit-scrollbar-track {
   border-radius: 15px;
   background: transparent;
-  margin:2rem;
+  margin: 2rem;
 }
 
 .scrollbarfeature:hover::-webkit-scrollbar-thumb {
-    background-color: rgb(181, 181, 181);
-    
-  }
+  background-color: rgb(181, 181, 181);
+}
+

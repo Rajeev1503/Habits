@@ -59,46 +59,45 @@ const SignIn = () => {
   );
 
   return (
-    <Layout title="Signin">
-      <Head>
-        <title>Signin</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      </Head>
-      <div className="text-lighttext mb-8 flex flex-col gap-2 items-center">
-        <div className="text-center">
+    <div className="flex flex-col rounded-lg bg-main-background p-5 w-3/6 max-h-min">
+      <div className="text-lighttext flex flex-col gap-2 items-center font-semibold" >
+        {/* <div className="text-center">
           <FaList size={40} />
-        </div>
-        <h1 className="">Signin To Taskify</h1>
+        </div> */}
+        <h1 className="text-2xl">Welcome Back!</h1>
+        <h1 className="text-sm text-gray-500">We are excited to see you again!</h1>
       </div>
-      <div className="text-lighttext font-semibold  p-4 rounded-lg">
-        <div className="flex flex-col gap-8">
+      <div className=" flex flex-row justify-center items-center text-lighttext font-semibold rounded-lg">
+        <div className="w-4/5 flex flex-col gap-8">
           <form
-            className="flex flex-col w-full gap-4"
+            className="flex flex-col w-full"
             action="/api/user"
             method="POST"
             onSubmit={onSubmitHandler}
           >
             <br></br>
+            <label htmlFor="usernameoremail" className="py-1">Username Or Email</label>
             <Input
               id="usernameoremail"
               element="input"
               type="text"
-              placeholder="username or email"
               lable="usernameoremail"
               errorText="Required"
               validators="REQUIRE"
               onInput={inputHandler}
             />
+            <label htmlFor="password" className="py-1 mt-2">Password</label>
             <Input
               id="password"
               element="input"
               type="password"
-              placeholder="Enter New Password"
               lable="password"
               errorText="Password length should be minimum 8 characters"
               validators="REQUIRE"
               onInput={inputHandler}
             />
+            <a href="#" className="text-xs text-gray-500 py-1">forgot your password ?</a>
+            <br/>
             <Button
               type="submit"
               className="submit"
@@ -108,26 +107,13 @@ const SignIn = () => {
             </Button>
           </form>
           <br />
-          <div className="quick-signin-wrapper flex flex-col gap-2">
-            <div className="w-full bg-lighttext text-darktext flex gap-2 justify-center items-center p-1 rounded-lg text-xs">
-              <span className="max-w-max">
-                <FaGithub size={20} />
-              </span>
-              <span className="max-w-max">Login Using Github</span>
-            </div>
-            <div className="w-full bg-lighttext text-darktext flex gap-2 justify-center items-center p-1 rounded-lg text-xs">
-              <span className="max-w-max">
-                <FaGoogle size={20} />
-              </span>
-              <span className="max-w-max">Login Using Google</span>
-            </div>
-          </div>
-          <div className="w-full bg-lighttext text-darktext p-1 rounded-lg">
+          
+          <div className="w-full ">
             New to taskify? <Link href="/user/signup">Create your account</Link>
           </div>
         </div>
       </div>
-    </Layout>
+      </div>
   );
 };
 

@@ -9,7 +9,7 @@ module.exports = {
     extend: {
       colors: {
         'app-background' : '#181818',
-        'main-background' : 'black',
+        'main-background' : '#111111  ',
         'accent-background' : '#181818',
         'display-layout-light': '#000000',
         'navbar-light' : '#131313',
@@ -22,7 +22,7 @@ module.exports = {
         'sub-text' : '#71767b',
         'sub-text-dark' : '#393E46',
         'button-dark' : '#333333',
-        'button-light' : '#eff3f4',
+        'button-light' : '#c44242',
         'border-light': '#eff3f4',
         'border-dark': '#333333',
         'border-notactive' : '#548CFF',
@@ -31,7 +31,7 @@ module.exports = {
       },
       fontSize: {
         'xxs': '0.63rem',
-    },
+    }
     },
   },
   plugins: [],

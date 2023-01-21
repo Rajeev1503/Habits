@@ -13,7 +13,7 @@ const LeftSideMenu = (props) => {
           <ul className="w-full flex flex-col gap-5 font-semibold text-sm">
             {taskListType?.allTaskListType?.map((taskListType)=>{
               return (
-            <li key={taskListType.name} className="block bg-accent-background rounded-lg p-2 cursor-pointer" onClick={()=>{currentTaskListType.setCurrentTaskListType(taskListType)}}>
+            <li key={taskListType.name} className="block bg-accent-background rounded-lg p-2 cursor-pointer" onClick={()=>{currentTaskListType.setCurrentTaskListType(taskListType); props.renderTaskListPage()}}>
               <p className="hover:scale-105">{taskListType.name}</p>
             </li>
               )
