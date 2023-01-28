@@ -1,8 +1,7 @@
 import Link from "next/link";
 import { useContext } from 'react';
-import { CurrentTaskListTypeContext } from "../../context/CurrentTaskListTypeContext";
-import { TaskListContext } from "../../context/TaskListContext";
-import { TaskListTypeContext } from "../../context/TaskListTypeContext";
+import { CurrentTaskListTypeContext } from "../context/CurrentTaskListTypeContext";
+import { TaskListTypeContext } from "../context/TaskListTypeContext";
 const LeftSideMenu = (props) => {
 
   const taskListType = useContext(TaskListTypeContext);

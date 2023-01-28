@@ -1,22 +1,20 @@
 import Head from "next/head";
 import { useContext, useEffect, useState } from "react";
-import Layout from "../components/layout/layout";
-import PageMenu from "../components/shared/components/display_layout/page-menu";
-import CenterLayout from "../components/shared/components/display_layout/center-layout";
-import Tasks from "../components/shared/components/UIElements/tasks";
+import Layout from "../layout/layout";
+import Tasks from "../components/tasks";
 import Image from "next/image";
-import selecttasklist from "../public/selecttasklist2.svg";
+import selecttasklist from "../../public/selecttasklist2.svg";
 import { getSession, useSession } from "next-auth/react";
-import RightPageMenu from "../components/shared/components/UIElements/rightPageMenu";
-import { TaskListContext } from "../components/shared/context/TaskListContext";
-import TaskList from "../components/shared/components/UIElements/taskList";
-import { TaskContext } from "../components/shared/context/TaskContext";
-import fetchHelper from "../helpers/fetch-helper";
-import { TaskListTypeContext } from "../components/shared/context/TaskListTypeContext";
-import { NEXT_URL } from "../config/index";
-import dbConnect from "../database/database";
-import LeftSideMenu from "../components/shared/components/display_layout/leftsidemenu";
-import Navigation from "../components/shared/components/Navigation/Navigation";
+import RightPageMenu from "../components/rightPageMenu";
+import { TaskListContext } from "../context/TaskListContext";
+import TaskList from "../components/taskList";
+import { TaskContext } from "../context/TaskContext";
+import fetchHelper from "../../helpers/fetch-helper";
+import { TaskListTypeContext } from "../context/TaskListTypeContext";
+import { NEXT_URL } from "../../config/index";
+import dbConnect from "../../database/database";
+import LeftSideMenu from "../components/leftsidemenu";
+import Navigation from "../components/Navigation/Navigation";
 
 export default function MainApp(props) {
   const taskListTypeContext = useContext(TaskListTypeContext);
@@ -97,7 +95,7 @@ export default function MainApp(props) {
             {taskListPageData}
           </div>
           <div className={`${toggleDarkMode?'bg-main-background-dark': 'bg-main-background-light'} p-2 rounded-lg`} style={{ height: "90.5vh" , width: "50%" }}>
-            <CenterLayout>
+{/* center page data */}
               <div className="flex flex-col overflow-y-scroll" style={{height:'100%'}}>
                 <div className="">
                   <span className="text-xs font-bold text-lightgray">
@@ -112,16 +110,13 @@ export default function MainApp(props) {
                   {centerPageData}
                 </div>
               </div>
-            </CenterLayout>
           </div>
 
           <div
             className={`${toggleDarkMode?'bg-main-background-dark': 'bg-main-background-light'} p-2 rounded-lg`}
             style={{ height: "90.5vh", width: "25%"  }}
           >
-            <PageMenu>
               <div className="mt-4">{rightPageMenuContent}</div>
-            </PageMenu>
           </div>
         </div>
       </div>

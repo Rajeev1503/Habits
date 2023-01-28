@@ -1,12 +1,10 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
-import fetchHelper from "../../../../helpers/fetch-helper";
-import { CurrentTaskListTypeContext } from "../../context/CurrentTaskListTypeContext";
-import { TaskListContext } from "../../context/TaskListContext";
-import PageMenu from "../display_layout/page-menu";
+// import { TaskListContext } from "../../context/TaskListContext";
 import Card from "./card";
-import { NEXT_URL } from "../../../../config/index";
+import { CurrentTaskListTypeContext } from "../context/CurrentTaskListTypeContext";
+import fetchHelper from "../../helpers/fetch-helper";
 export default function TaskList(props) {
   const [taskLists, setTaskLists] = useState([]);
   const { data: session } = useSession();
@@ -31,7 +29,6 @@ export default function TaskList(props) {
   const [moreFieldsToggle, setMoreFieldsToggle] = useState(false);
 
   return (
-    <PageMenu>
       <div className="flex flex-col gap-2 pt-8 px-2" style={{ height: "100%" }}>
         <div className="">
           <button
@@ -43,7 +40,7 @@ export default function TaskList(props) {
             + Add New Task List
           </button>
           <div
-            className={`bg-main-background ${addTaskListToggle?'':'hidden'} rounded-lg font-semibold text-xs mt-4 pt-2`}
+            className={`bg-main-background-dark ${addTaskListToggle?'hidden':'hidden'} rounded-lg font-semibold text-xs mt-4 pt-2`}
           >
             <div className="flex flex-row gap-1">
               <input
@@ -157,6 +154,5 @@ export default function TaskList(props) {
           </div>
         </div>
       </div>
-    </PageMenu>
   );
 }

@@ -1,5 +1,5 @@
-import dbConnect from "../../../database/database";
-import TaskList from '../../../model/tasklist-model';
+import dbConnect from "../../../../database/database";
+import TaskList from '../../../../model/tasklist-model';
 const handler = async ( req, res) => {
   
   // const { userId } = req.query

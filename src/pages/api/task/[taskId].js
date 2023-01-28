@@ -1,5 +1,5 @@
-import dbConnect from "../../../database/database";
-import Task from "../../../model/task-model";
+import dbConnect from "../../../../database/database";
+import Task from "../../../../model/task-model";
 
 const handler = async ( req, res) => {
     

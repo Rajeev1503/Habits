@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react";
-import fetchHelper from "../../../../helpers/fetch-helper";
-import { AllTaskContext } from "../../context/AllTaskContext";
-import { TaskContext } from "../../context/TaskContext";
 import { FaAngleDown } from "react-icons/fa";
 import { FaAngleUp } from "react-icons/fa";
-import ChatBox from "../chatBox";
+import { AllTaskContext } from "../context/AllTaskContext";
+import { TaskContext } from "../context/TaskContext";
+import fetchHelper from "../../helpers/fetch-helper";
+import ChatBox from "./chatBox";
 
 const RightPageMenu = (props) => {
   const taskContext = useContext(TaskContext);
@@ -176,7 +176,7 @@ const RightPageMenu = (props) => {
         </div>
       </form>
       <div className="bg-accent-background-dark p-2 rounded-lg text-xs font-semibold" style={{position:'absolute', bottom:'1rem', width:'340px', right:'0.4rem'}}>
-      <ChatBox>
+      <ChatBox >
         <div className={`${chatBoxToggle?'hidden' : ''} flex flex-col gap-3 pb-3`} style={{height:'340px'}}>
           <div className="border border-border-dark rounded-lg " style={{height:'90%'}}>
 

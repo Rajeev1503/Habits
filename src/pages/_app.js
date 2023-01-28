@@ -2,11 +2,11 @@ import { SessionProvider } from "next-auth/react";
 import { useEffect, useReducer, useState } from "react";
 import "../styles/globals.css";
 //all contexts
-import { TaskContext } from "../components/shared/context/TaskContext";
-import { TaskListContext } from "../components/shared/context/TaskListContext";
-import { AllTaskContext } from "../components/shared/context/AllTaskContext";
-import { TaskListTypeContext } from "../components/shared/context/TaskListTypeContext";
-import { CurrentTaskListTypeContext } from "../components/shared/context/CurrentTaskListTypeContext";
+import { TaskContext } from "../context/TaskContext";
+import { TaskListContext } from "../context/TaskListContext";
+import { AllTaskContext } from "../context/AllTaskContext";
+import { TaskListTypeContext } from "../context/TaskListTypeContext";
+import { CurrentTaskListTypeContext } from "../context/CurrentTaskListTypeContext";
 
 export default function App({
   Component,

@@ -1,8 +1,8 @@
 
 import Link from "next/link";
-import Button from "../components/shared/components/FormElements/button";
-import Input from "../components/shared/components/FormElements/input";
-import { useForm } from "../components/shared/hooks/form-hook";
+import Button from "../../components/shared/components/FormElements/button";
+import Input from "../../components/shared/components/FormElements/input";
+import { useForm } from "../hooks/form-hook";
 import { getSession, signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -52,7 +52,7 @@ const [signInLoading, setSignInLoading] = useState(false)
   );
 
   return (
-    <div className="flex flex-col rounded-lg bg-main-background p-5 w-3/6 max-h-min">
+    <div className="flex flex-col rounded-lg bg-main-background-dark p-5 w-3/6 max-h-min">
       {signInLoading?<div className="text-white">Loading...</div>: ''}
       <div className="text-lighttext flex flex-col gap-2 items-center font-semibold" >
         {/* <div className="text-center">

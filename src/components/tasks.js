@@ -1,9 +1,9 @@
-import fetchHelper from "../../../../helpers/fetch-helper";
+import Card from './card'
 import { useContext, useEffect, useState } from "react";
-import Card from "../UIElements/card";
-import { TaskListContext } from "../../context/TaskListContext";
-import { AllTaskContext } from "../../context/AllTaskContext";
-import { TaskContext } from "../../context/TaskContext";
+import { TaskContext } from "../context/TaskContext";
+import { AllTaskContext } from "../context/AllTaskContext";
+import { TaskListContext } from "../context/TaskListContext";
+import fetchHelper from "../../helpers/fetch-helper";
 
 export default function Tasks(props) {
   const taskListContext = useContext(TaskListContext);
@@ -33,6 +33,13 @@ export default function Tasks(props) {
 
   const [displayDetailedTask, setDisplayDetailedTask] = useState(false);
 
+  function displayDetailedTaskHandler(initialValue) {
+    if(initialValue && !displayDetailedTask){
+      return setDisplayDetailedTask(true);
+    }
+    return setDisplayDetailedTask(false);
+  }
+
   return (
     <div className="w-full">
       <p className={`${loading ? "" : "hidden"}`}>loading...</p>
@@ -53,7 +60,11 @@ export default function Tasks(props) {
               } ${displayDetailedTask? 'col-auto' : ''}`}
             >
               <div
-                className="cursor-pointer"
+                className={`${
+                  task._id === taskContext?.task?._id
+                    ?displayDetailedTask? "cursor-default": "cursor-pointer"
+                    : "cursor-pointer"
+                }`}
                 onClick={() => {
                   taskContext.setTask(task);
                   return props.setTaskHandler(task);
@@ -102,7 +113,7 @@ export default function Tasks(props) {
                           ? "hidden"
                           : displayDetailedTask
                           ? "hidden"
-                          : "false"
+                          : ""
                       } text-xs font-semibold mt-8 bg-accent-background rounded-lg p-4`}
                     >
                       <div>
@@ -158,12 +169,12 @@ export default function Tasks(props) {
                       </div>
                     </div>
                     <p
-                      className={` text-right text-xs font-semibold pt-2 px-2`}
+                      className={` text-right text-xs font-semibold pt-2 px-2 cursor-pointer`}
                       onClick={() => {
-                        setDisplayDetailedTask(!displayDetailedTask);
+                        displayDetailedTaskHandler(task._id === taskContext?.task?._id);
                       }}
                     >
-                      {displayDetailedTask ? <p></p>
+                      {displayDetailedTask ? <p>Expand</p>
                          : task._id === taskContext?.task?._id ?<span>Hide</span>: <p></p>
                       }
                     </p>
