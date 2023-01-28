@@ -1,19 +1,19 @@
 import Head from "next/head";
 import { useContext, useEffect, useState } from "react";
 import Layout from "../layout/layout";
-import Tasks from "../components/tasks";
+import Tasks from "../components/tasks-component";
 import Image from "next/image";
 import selecttasklist from "../../public/selecttasklist2.svg";
 import { getSession, useSession } from "next-auth/react";
-import RightPageMenu from "../components/rightPageMenu";
+import RightPageMenu from "../components/chatBox-component";
 import { TaskListContext } from "../context/TaskListContext";
-import TaskList from "../components/taskList";
+import TaskList from "../components/taskList-component";
 import { TaskContext } from "../context/TaskContext";
 import fetchHelper from "../../helpers/fetch-helper";
 import { TaskListTypeContext } from "../context/TaskListTypeContext";
 import { NEXT_URL } from "../../config/index";
 import dbConnect from "../../database/database";
-import LeftSideMenu from "../components/leftsidemenu";
+import LeftSideMenu from "../components/taskListType-component";
 import Navigation from "../components/Navigation/Navigation";
 
 export default function MainApp(props) {
@@ -49,11 +49,7 @@ export default function MainApp(props) {
   function showTasksHandler() {
     return setCenterPageData(
       <div>
-        <Tasks
-          setTaskHandler={() => {
-            setTaskHandler();
-          }}
-        />
+        <Tasks setTaskHandler={() => {setTaskHandler();}}/>
       </div>
     );
   }
@@ -62,10 +58,10 @@ export default function MainApp(props) {
     taskListContext.setTaskList(tasklist);
     showTasksHandler();
   }
+
+
   function renderTaskListPage() {
-    return setTaskListPageData(
-      <TaskList renderTaskPage={renderTaskPage}/>
-    )
+    return setTaskListPageData(<TaskList renderTaskPage={renderTaskPage}/>)
   }
 
   const [toggleDarkMode, setToggleDarkMode] = useState(true)
@@ -80,22 +76,32 @@ export default function MainApp(props) {
         className="flex flex-col fixed top-0 right-1.5"
         style={{ height: "99vh", width: "99.2%", margin:'auto auto' }}
       >
+
+        {/* Navigation section */}
         <div className={`${toggleDarkMode?'bg-main-background-dark': 'bg-main-background-light'} p-2 rounded-lg`} style={{width:'100%',margin:'auto auto' }}>
           <Navigation setToggleDarkMode={setToggleDarkMode} toggleDarkMode={toggleDarkMode}/>
         </div>
+        {/* Navigation section */}
 
         <div className="flex flex-row justify-center gap-2 " style={{width:'100%'}}>
+
+          {/* Leftside section */}
           <div
             className={`${toggleDarkMode?'bg-main-background-dark': 'bg-main-background-light'} p-2 rounded-lg`}
             style={{ height: "90.5vh", width: "12%" }}
-          >
+            >
             <LeftSideMenu renderTaskListPage={renderTaskListPage}/>
           </div>
+          {/* Leftside section */}
+
+          {/* tasklist section */}
           <div className={`${toggleDarkMode?'bg-main-background-dark': 'bg-main-background-light'} p-2 rounded-lg`} style={{ height: "90.5vh", width: "20%"  }}>
             {taskListPageData}
           </div>
-          <div className={`${toggleDarkMode?'bg-main-background-dark': 'bg-main-background-light'} p-2 rounded-lg`} style={{ height: "90.5vh" , width: "50%" }}>
-{/* center page data */}
+          {/* tasklist section */}
+
+          {/* center page data */}
+          <div className={`${toggleDarkMode?'bg-main-background-dark': 'bg-main-background-light'} p-2 rounded-lg`} style={{ height: "90.5vh" , width: "43%" }}>
               <div className="flex flex-col overflow-y-scroll" style={{height:'100%'}}>
                 <div className="">
                   <span className="text-xs font-bold text-lightgray">
@@ -104,20 +110,25 @@ export default function MainApp(props) {
                 </div>
                 <br />
                 <div className="items-center">
-                  <button className="max-w-max bg-button-light p-1 px-2 rounded-lg text-xs text-center text-lighttext font-semibold mb-4">
+                  <button className="max-w-max bg-button-light p-1 px-2 rounded-lg text-xs text-center text-darktext font-semibold mb-4">
                     Add New Task
                   </button>
                   {centerPageData}
                 </div>
               </div>
           </div>
+          {/* center page data */}
 
+          {/* Right Page Menu */}
           <div
-            className={`${toggleDarkMode?'bg-main-background-dark': 'bg-main-background-light'} p-2 rounded-lg`}
+            className={`${toggleDarkMode?'bg-main-background-dark': 'bg-main-background-light'} flex flex-row justify-center items-center p-2 rounded-lg`}
             style={{ height: "90.5vh", width: "25%"  }}
           >
-              <div className="mt-4">{rightPageMenuContent}</div>
+              <div className="mt-4 "><p>Chat System!!!</p></div>
           </div>
+          {/* Right Page Menu */}
+
+
         </div>
       </div>
       </div>

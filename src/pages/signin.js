@@ -1,7 +1,7 @@
 
 import Link from "next/link";
-import Button from "../../components/shared/components/FormElements/button";
-import Input from "../../components/shared/components/FormElements/input";
+import Button from "../shared/FormElements/button";
+import Input from "../shared/FormElements/input";
 import { useForm } from "../hooks/form-hook";
 import { getSession, signIn } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -52,7 +52,7 @@ const [signInLoading, setSignInLoading] = useState(false)
   );
 
   return (
-    <div className="flex flex-col rounded-lg bg-main-background-dark p-5 w-3/6 max-h-min">
+    <div className="py-8">
       {signInLoading?<div className="text-white">Loading...</div>: ''}
       <div className="text-lighttext flex flex-col gap-2 items-center font-semibold" >
         {/* <div className="text-center">
@@ -62,7 +62,7 @@ const [signInLoading, setSignInLoading] = useState(false)
         <h1 className="text-sm text-gray-500">We are excited to see you again!</h1>
       </div>
       <div className=" flex flex-row justify-center items-center text-lighttext font-semibold rounded-lg">
-        <div className="w-4/5 flex flex-col gap-8">
+        <div className="w-4/5 flex flex-col gap-5">
           <form
             className="flex flex-col w-full"
             action="/api/user"
@@ -97,14 +97,9 @@ const [signInLoading, setSignInLoading] = useState(false)
               className="submit"
               disabled={!formState.isValid}
             >
-              Login
+              SignIn
             </Button>
           </form>
-          <br />
-          
-          <div className="w-full text-center">
-            New to taskifyApp? <Link href="/user/signup">Create your account</Link>
-          </div>
         </div>
       </div>
       </div>

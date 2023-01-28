@@ -1,5 +1,5 @@
 import { useEffect, useReducer } from "react";
-import { validate } from "../../../../src/Utils/Validator";
+import { validate } from "../../Utils/Validator";
 
 const inputReducer = (state, action) => {
   switch (action.type) {
@@ -60,7 +60,7 @@ const Input = (props) => {
         onBlur={onBlurHandler}
         value={inputState.value}
 
-        className=" border border-border-light rounded-lg p-1 bg-transparent text-lighttext"
+        className=" border border-border-dark rounded-lg p-1 bg-transparent text-lighttext"
       />
     ) : (
       <textarea id={props.id} rows={props.rows || 3} />

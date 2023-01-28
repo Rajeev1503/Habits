@@ -12,7 +12,7 @@ module.exports = {
         'app-background' : '#181818',
         'main-background-dark' : '#111111  ',
         'main-background-light' : '#e2e4e4  ',
-        'accent-background-dark' : '#181818',
+        'accent-background-dark' : '#202020',
         'accent-background-light' : '#e9e9e9',
         'navbar-light' : '#131313',
         'card-light' : '#131313',
@@ -33,7 +33,17 @@ module.exports = {
       },
       fontSize: {
         'xxs': '0.63rem',
-    }
+    },
+    screens: {
+      'mobile': '320px',
+      // => @media (min-width: 640px) { ... }
+
+      'laptop': '1024px',
+      // => @media (min-width: 1024px) { ... }
+
+      'desktop': '1280px',
+      // => @media (min-width: 1280px) { ... }
+    },
     },
   },
   plugins: [],
