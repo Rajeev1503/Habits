@@ -33,7 +33,7 @@ export default function MainApp(props) {
   const [buttonDisplay, setButtonDisplay] = useState("none");
   const [centerPageData, setCenterPageData] = useState(
     <div className="mt-8">
-      <h2 className="text-xl font-semibold">Welcome, Select Task List</h2>
+      <h2 className="text-xl font-semibold">Welcome to TaskifyApp</h2>
       <br />
       <Image src={selecttasklist} alt="Select Task List" />
     </div>
@@ -75,11 +75,11 @@ export default function MainApp(props) {
   return (
     <Layout title="Home" pageHeading="Team Tasks">
         <Head>
-    <title>Taskify</title>
+    <title>TaskifyApp</title>
   </Head>
   <div className={`${toggleDarkMode?'bg-accent-background-dark text-lighttext': 'bg-accent-background-light text-darktext'}`} style={{height:'100vh'}}>
       <div
-        className="flex flex-col gap-2"
+        className="flex flex-col fixed top-0 right-1.5"
         style={{ height: "99vh", width: "99.2%", margin:'auto auto' }}
       >
         <div className={`${toggleDarkMode?'bg-main-background-dark': 'bg-main-background-light'} p-2 rounded-lg`} style={{width:'100%',margin:'auto auto' }}>

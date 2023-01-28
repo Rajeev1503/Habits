@@ -1,16 +1,11 @@
-import Head from "next/head";
+
 import Link from "next/link";
-import Layout from "../components/layout/layout";
 import Button from "../components/shared/components/FormElements/button";
 import Input from "../components/shared/components/FormElements/input";
-import { FaGoogle } from "react-icons/fa";
-import { FaGithub } from "react-icons/fa";
-import { FaList } from "react-icons/fa";
 import { useForm } from "../components/shared/hooks/form-hook";
 import { getSession, signIn } from "next-auth/react";
-// import { useEffect } from "react";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const SignIn = () => {
   const router = useRouter();
@@ -107,8 +102,8 @@ const [signInLoading, setSignInLoading] = useState(false)
           </form>
           <br />
           
-          <div className="w-full ">
-            New to taskify? <Link href="/user/signup">Create your account</Link>
+          <div className="w-full text-center">
+            New to taskifyApp? <Link href="/user/signup">Create your account</Link>
           </div>
         </div>
       </div>

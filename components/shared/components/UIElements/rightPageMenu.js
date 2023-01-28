@@ -175,9 +175,9 @@ const RightPageMenu = (props) => {
           </button>
         </div>
       </form>
-      <div className="bg-accent-background p-2 rounded-lg text-xs font-semibold" style={{position:'absolute', bottom:'1rem', width:'340px', right:'0.75rem'}}>
+      <div className="bg-accent-background-dark p-2 rounded-lg text-xs font-semibold" style={{position:'absolute', bottom:'1rem', width:'340px', right:'0.4rem'}}>
       <ChatBox>
-        <div className={`${chatBoxToggle?'hidden' : ''} flex flex-col gap-3 pb-3`} style={{height:'350px'}}>
+        <div className={`${chatBoxToggle?'hidden' : ''} flex flex-col gap-3 pb-3`} style={{height:'340px'}}>
           <div className="border border-border-dark rounded-lg " style={{height:'90%'}}>
 
           </div>

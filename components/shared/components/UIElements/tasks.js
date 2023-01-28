@@ -56,7 +56,6 @@ export default function Tasks(props) {
                 className="cursor-pointer"
                 onClick={() => {
                   taskContext.setTask(task);
-                  setDisplayDetailedTask(!displayDetailedTask)
                   return props.setTaskHandler(task);
                 }}
               >
