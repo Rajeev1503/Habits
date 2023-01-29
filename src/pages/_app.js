@@ -5,8 +5,9 @@ import "../styles/globals.css";
 import { TaskContext } from "../context/TaskContext";
 import { TaskListContext } from "../context/TaskListContext";
 import { AllTaskContext } from "../context/AllTaskContext";
-import { TaskListTypeContext } from "../context/TaskListTypeContext";
 import { CurrentTaskListTypeContext } from "../context/CurrentTaskListTypeContext";
+import { BackgroundColorContext } from "../context/backgroundColorContext";
+import { TaskListCategoryContext } from "../context/TaskListCategoryContext";
 
 export default function App({
   Component,
@@ -17,6 +18,26 @@ export default function App({
   const [allTaskListType, setAllTaskListType] = useState();
   const [currentTaskListType, setCurrentTaskListType] = useState();
 
+  function backgroundColorReducer(backgroundColorState, action) {
+    switch (action.type) {
+      case "LIGHT": {
+        return {
+          mode: "light",
+          mainbackground: "bg-[#FF0000]",
+          border: "green",
+        };
+      }
+      case "CUSTOM": {
+        return {
+          mode: "custom",
+          mainbackground: "blue",
+          border: "green",
+        };
+      }
+      default:
+        return backgroundColorState;
+    }
+  }
   function allTasksReducer(allTasks, action) {
     switch (action.type) {
       case "addtasks": {
@@ -45,20 +66,41 @@ export default function App({
     { message: "hello" },
   ]);
 
+  const [backgroundColorState, backgroundColorDispatch] = useReducer(
+    backgroundColorReducer,
+    {
+      mode: "dark",
+      background:"bg-[#202020]",
+      foreground: "bg-[#111111]",
+      border: "border-[#252525]",
+      text: "text-[#e2e4e4]",
+    }
+  );
+
   return (
     <>
       <SessionProvider session={session}>
-        <TaskListTypeContext.Provider value={{ allTaskListType, setAllTaskListType }}>
-        <CurrentTaskListTypeContext.Provider value={{ currentTaskListType, setCurrentTaskListType }}>
-          <TaskListContext.Provider value={{ taskList, setTaskList }}>
-            <AllTaskContext.Provider value={{ allTasksState, allTasksDispatch }}>
-              <TaskContext.Provider value={{ task, setTask }}>
-                <Component {...pageProps} />
-              </TaskContext.Provider>
-            </AllTaskContext.Provider>
-          </TaskListContext.Provider>
+        <TaskListCategoryContext.Provider
+          value={{ allTaskListType, setAllTaskListType }}
+        >
+          <CurrentTaskListTypeContext.Provider
+            value={{ currentTaskListType, setCurrentTaskListType }}
+          >
+            <TaskListContext.Provider value={{ taskList, setTaskList }}>
+              <AllTaskContext.Provider
+                value={{ allTasksState, allTasksDispatch }}
+              >
+                <TaskContext.Provider value={{ task, setTask }}>
+                  <BackgroundColorContext.Provider
+                    value={{ backgroundColorState, backgroundColorDispatch }}
+                  >
+                    <Component {...pageProps} />
+                  </BackgroundColorContext.Provider>
+                </TaskContext.Provider>
+              </AllTaskContext.Provider>
+            </TaskListContext.Provider>
           </CurrentTaskListTypeContext.Provider>
-        </TaskListTypeContext.Provider>
+        </TaskListCategoryContext.Provider>
       </SessionProvider>
     </>
   );

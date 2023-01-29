@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useReducer, useState } from "react";
 import Layout from "../layout/layout";
 import Tasks from "../components/tasks-component";
 import Image from "next/image";
@@ -10,20 +10,22 @@ import { TaskListContext } from "../context/TaskListContext";
 import TaskList from "../components/taskList-component";
 import { TaskContext } from "../context/TaskContext";
 import fetchHelper from "../../helpers/fetch-helper";
-import { TaskListTypeContext } from "../context/TaskListTypeContext";
+import { TaskListCategoryContext } from "../context/TaskListCategoryContext";
 import { NEXT_URL } from "../../config/index";
 import dbConnect from "../../database/database";
 import TaskListCategory from "../components/taskListCategory-component";
 import Navigation from "../components/Navigation/Navigation";
+import { BackgroundColorContext } from "../context/backgroundColorContext";
 
 export default function MainApp(props) {
-  const taskListTypeContext = useContext(TaskListTypeContext);
-
+  const taskListCategoryContext = useContext(TaskListCategoryContext);
+  const taskListContext = useContext(TaskListContext);
+  const backgroundColorContext = useContext(BackgroundColorContext);
   const { data: session } = useSession();
 
   useEffect(() => {
     if (session?.user) {
-      taskListTypeContext.setAllTaskListType(props.allTaskListTypes);
+      taskListCategoryContext.setAllTaskListType(props.allTaskListCategory);
     }
   }, [session]);
 
@@ -39,8 +41,7 @@ export default function MainApp(props) {
 
     const [taskListPageData, setTaskListPageData] =useState();
 
-  const taskListContext = useContext(TaskListContext);
-  const taskContext = useContext(TaskContext);
+
 
   function setTaskHandler() {
     return setRightPageMenuContent(<RightPageMenu />);
@@ -64,22 +65,28 @@ export default function MainApp(props) {
     return setTaskListPageData(<TaskList renderTaskPage={renderTaskPage}/>)
   }
 
-  const [toggleDarkMode, setToggleDarkMode] = useState(true)
+  const toggleDarkMode = true;
+  const colorPalate = {
+    background : backgroundColorContext.backgroundColorState.background,
+    foreground : backgroundColorContext.backgroundColorState.foreground,
+    border: backgroundColorContext.backgroundColorState.border,
+    text: backgroundColorContext.backgroundColorState.text,
+
+  }
 
   return (
     <Layout title="Home" pageHeading="Team Tasks">
         <Head>
     <title>TaskifyApp</title>
   </Head>
-  <div className={`${toggleDarkMode?'bg-accent-background-dark text-lighttext': 'bg-accent-background-light text-darktext'}`} style={{height:'100vh'}}>
+  <div className={`${colorPalate.background} ${colorPalate.text}`} style={{height:'100vh'}}>
       <div
-        className="flex flex-col fixed top-0 right-1.5"
+        className="flex flex-col"
         style={{ height: "99vh", width: "99.2%", margin:'auto auto' }}
       >
-
         {/* Navigation section */}
         <div className={`${toggleDarkMode?'bg-main-background-dark': 'bg-main-background-light'} p-2 rounded-lg`} style={{width:'100%',margin:'auto auto' }}>
-          <Navigation setToggleDarkMode={setToggleDarkMode} toggleDarkMode={toggleDarkMode}/>
+          <Navigation/>
         </div>
         {/* Navigation section */}
 
@@ -136,11 +143,11 @@ export async function getServerSideProps(ctx) {
   }
   await dbConnect();
   const data = await fetchHelper(`${NEXT_URL}/api/userId/tasklisttypes`, "GET");
-  const allTaskListTypes = JSON.parse(data);
+  const allTaskListCategory= JSON.parse(data);
 
   return {
     props: {
-      allTaskListTypes,
+      allTaskListCategory,
     },
   };
 }

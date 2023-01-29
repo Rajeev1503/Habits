@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { useContext, useState } from 'react';
 import { CurrentTaskListTypeContext } from "../context/CurrentTaskListTypeContext";
-import { TaskListTypeContext } from "../context/TaskListTypeContext";
+import { TaskListCategoryContext } from "../context/TaskListCategoryContext";
 const TaskListCategory = (props) => {
 
-  const taskListType = useContext(TaskListTypeContext);
+  const taskListType = useContext(TaskListCategoryContext);
   const currentTaskListType = useContext(CurrentTaskListTypeContext);
 
   const [loading, setLoading] = useState(false);
