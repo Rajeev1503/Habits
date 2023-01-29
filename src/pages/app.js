@@ -13,7 +13,7 @@ import fetchHelper from "../../helpers/fetch-helper";
 import { TaskListTypeContext } from "../context/TaskListTypeContext";
 import { NEXT_URL } from "../../config/index";
 import dbConnect from "../../database/database";
-import LeftSideMenu from "../components/taskListType-component";
+import TaskListCategory from "../components/taskListCategory-component";
 import Navigation from "../components/Navigation/Navigation";
 
 export default function MainApp(props) {
@@ -90,7 +90,7 @@ export default function MainApp(props) {
             className={`${toggleDarkMode?'bg-main-background-dark': 'bg-main-background-light'} p-2 rounded-lg`}
             style={{ height: "90.5vh", width: "12%" }}
             >
-            <LeftSideMenu renderTaskListPage={renderTaskListPage}/>
+            <TaskListCategory renderTaskListPage={renderTaskListPage}/>
           </div>
           {/* Leftside section */}
 
@@ -102,20 +102,8 @@ export default function MainApp(props) {
 
           {/* center page data */}
           <div className={`${toggleDarkMode?'bg-main-background-dark': 'bg-main-background-light'} p-2 rounded-lg`} style={{ height: "90.5vh" , width: "43%" }}>
-              <div className="flex flex-col overflow-y-scroll" style={{height:'100%'}}>
-                <div className="">
-                  <span className="text-xs font-bold text-lightgray">
-                    1st January 2023
-                  </span>
-                </div>
-                <br />
-                <div className="items-center">
-                  <button className="max-w-max bg-button-light p-1 px-2 rounded-lg text-xs text-center text-darktext font-semibold mb-4">
-                    Add New Task
-                  </button>
+              
                   {centerPageData}
-                </div>
-              </div>
           </div>
           {/* center page data */}
 

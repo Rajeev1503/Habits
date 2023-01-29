@@ -1,13 +1,20 @@
 import Link from "next/link";
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { CurrentTaskListTypeContext } from "../context/CurrentTaskListTypeContext";
 import { TaskListTypeContext } from "../context/TaskListTypeContext";
-const LeftSideMenu = (props) => {
+const TaskListCategory = (props) => {
 
   const taskListType = useContext(TaskListTypeContext);
   const currentTaskListType = useContext(CurrentTaskListTypeContext);
+
+  const [loading, setLoading] = useState(false);
+
   return (
-    <div  className="flex flex-col justify-center items-center overflow-y-auto h-full pt-8 text-sm">
+    <div  className="w-full flex flex-col justify-center items-center overflow-y-auto h-full text-sm">
+          <button className="w-full bg-button-light p-1 rounded-lg text-xs text-center text-darktext font-semibold">
+                    + Add Category
+          </button>
+          <br/>
         <div className="w-full">
           <ul className="w-full flex flex-col gap-5 font-semibold text-sm">
             {taskListType?.allTaskListType?.map((taskListType)=>{
@@ -16,10 +23,7 @@ const LeftSideMenu = (props) => {
               <p className="hover:scale-105">{taskListType.name}</p>
             </li>
               )
-            })}  
-            <button className="bg-button-light p-2 rounded-lg text-xs text-center text-darktext font-semibold">
-                    Add Category
-          </button>
+            })}
           </ul>
           
         </div>
@@ -27,4 +31,4 @@ const LeftSideMenu = (props) => {
   );
 };
 
-export default LeftSideMenu;
+export default TaskListCategory;

@@ -10,22 +10,21 @@ export default function TaskList(props) {
   const [taskLists, setTaskLists] = useState([]);
   const { data: session } = useSession();
   const currentTaskListType = useContext(CurrentTaskListTypeContext);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     fetchHandler();
   }, [currentTaskListType?.currentTaskListType]);
 
   function fetchHandler() {
-    setLoading(true);
     fetchHelper(`/api/userId/tasklists`, "GET")
       .then((data) => {
         const allTaskLists = JSON.parse(data);
-        return setTaskLists(allTaskLists);
+        setTaskLists(allTaskLists);
+        return setLoading(false);
       })
       .catch((err) => {
         console.log(err + ": error");
       });
-      setLoading(false);
   }
 
   const [addTaskListToggle, setAddTaskListToggle] = useState(false);
@@ -33,7 +32,6 @@ export default function TaskList(props) {
 
   return (
       <div className="flex flex-col gap-2 pt-8" style={{ height: "100%" }}>
-        <p className={`${loading ? 'border__loading' : ''} w-full`}></p>
         <div className="">
           <button
             className="max-w-max bg-button-light p-1 px-2 rounded-lg text-center text-xs text-darktext font-semibold"
@@ -103,7 +101,9 @@ export default function TaskList(props) {
             </div>
           </div>
         </div>
-        <div className="scrollbarfeature overflow-y-scroll flex justify-center items-center mt-8">
+        
+        <p className={`${loading ? 'border__loading' : ''} w-full  mt-8`}></p>
+        <div className="scrollbarfeature overflow-y-scroll flex justify-center items-center">
           <div className=" w-full" style={{ height: "100%" }}>
             <div className="grid grid-cols-1 gap-3">
               {taskLists.map((tasklist) => {
