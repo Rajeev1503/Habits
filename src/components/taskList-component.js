@@ -10,12 +10,13 @@ export default function TaskList(props) {
   const [taskLists, setTaskLists] = useState([]);
   const { data: session } = useSession();
   const currentTaskListType = useContext(CurrentTaskListTypeContext);
-
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     fetchHandler();
   }, [currentTaskListType?.currentTaskListType]);
 
   function fetchHandler() {
+    setLoading(true);
     fetchHelper(`/api/userId/tasklists`, "GET")
       .then((data) => {
         const allTaskLists = JSON.parse(data);
@@ -24,6 +25,7 @@ export default function TaskList(props) {
       .catch((err) => {
         console.log(err + ": error");
       });
+      setLoading(false);
   }
 
   const [addTaskListToggle, setAddTaskListToggle] = useState(false);
@@ -31,6 +33,7 @@ export default function TaskList(props) {
 
   return (
       <div className="flex flex-col gap-2 pt-8" style={{ height: "100%" }}>
+        <p className={`${loading ? 'border__loading' : ''} w-full`}></p>
         <div className="">
           <button
             className="max-w-max bg-button-light p-1 px-2 rounded-lg text-center text-xs text-darktext font-semibold"
@@ -41,7 +44,7 @@ export default function TaskList(props) {
             + Add New Task List
           </button>
           <div
-            className={`bg-main-background-dark ${addTaskListToggle?'hidden':''} rounded-lg font-semibold text-xs mt-4 pt-2`}
+            className={`bg-main-background-dark ${addTaskListToggle?'':'hidden'} rounded-lg font-semibold text-xs mt-4 pt-2`}
           >
             <div className="flex flex-row gap-1">
               <input

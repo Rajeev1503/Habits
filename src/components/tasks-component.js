@@ -35,7 +35,7 @@ export default function Tasks(props) {
   const [displayDetailedTask, setDisplayDetailedTask] = useState(false);
 
   return (
-    <div >
+    <div className="w-full">
       <p className={`${loading ? 'border__loading' : ''} w-full`}></p>
       {allTasksContext?.allTasksState?.length === 0 ? (
         <h1>No Tasks Found</h1>
