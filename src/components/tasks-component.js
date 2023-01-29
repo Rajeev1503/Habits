@@ -14,7 +14,6 @@ export default function Tasks(props) {
 
   useEffect(() => {
     fetchHandler();
-    setDisplayDetailedTask(<TaskDetails />)
   }, [taskListContext?.taskList]);
 
   function fetchHandler() {
@@ -33,30 +32,31 @@ export default function Tasks(props) {
       });
   }
 
-  const [displayDetailedTask, setDisplayDetailedTask] = useState(<p></p>);
+  const [displayDetailedTask, setDisplayDetailedTask] = useState(false);
 
   return (
-    <div className="w-full">
-      <p className={`${loading ? "" : "hidden"}`}>loading...</p>
+    <div >
+      <p className={`${loading ? 'border__loading' : ''} w-full`}></p>
       {allTasksContext?.allTasksState?.length === 0 ? (
         <h1>No Tasks Found</h1>
       ) : (
         ""
       )}
-      <div className=" grid grid-cols-1 auto-rows-auto gap-5 p-2">
+      <div className="grid grid-cols-1 auto-rows-auto gap-5 p-2">
         {allTasksContext?.allTasksState?.map((task, i) => {
           return (
             <div
               key={i}
               className={`border rounded-lg ${
                 task._id === taskContext?.task?._id
-                  ? "col-span-2 border-border-dark"
+                  ? "col-span-2 border-border-light"
                   : "border-border-dark"
               } ${displayDetailedTask ? "col-auto" : ""}`}
             >
               <div
                 onClick={() => {
-                  return taskContext.setTask(task);
+                  setDisplayDetailedTask(true);
+                return taskContext.setTask(task);
                 }}
               >
                 <Card
@@ -94,8 +94,10 @@ export default function Tasks(props) {
                         {task.description}
                       </p>
                     </div>
-
-                    {displayDetailedTask}
+<div className={`${displayDetailedTask? task._id === taskContext?.task?._id? '':'hidden' :'hidden'}`}>
+  <TaskDetails />
+</div>
+                    
                   </div>
                 </Card>
               </div>

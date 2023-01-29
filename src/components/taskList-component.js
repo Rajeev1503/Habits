@@ -41,7 +41,7 @@ export default function TaskList(props) {
             + Add New Task List
           </button>
           <div
-            className={`bg-main-background-dark ${addTaskListToggle?'hidden':'hidden'} rounded-lg font-semibold text-xs mt-4 pt-2`}
+            className={`bg-main-background-dark ${addTaskListToggle?'hidden':''} rounded-lg font-semibold text-xs mt-4 pt-2`}
           >
             <div className="flex flex-row gap-1">
               <input

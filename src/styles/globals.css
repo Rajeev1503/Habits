@@ -22,3 +22,18 @@
   background-color: rgb(181, 181, 181);
 }
 
+
+.border__loading{
+	width: 100%;
+	border-top: solid 2px rgb(255, 65, 65);
+	animation: border_anim 0.005s linear forwards;
+}
+
+@keyframes border_anim {
+	0%{
+		width: 0%;
+	}
+	100%{
+		width: 100%;
+	}
+}
