@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import dbConnect from "../../../../database/database";
-import UserModel from "../../../../model/user-model";
+import UserModel from "../../../../model/UserModel";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from 'bcryptjs'
 export default NextAuth({
@@ -8,6 +8,17 @@ export default NextAuth({
      strategy: "jwt" 
   },
   secret: process.env.NEXTAUTH_SECRET,
+  callbacks: {
+
+    async jwt({ token, user }) {
+      if(user?._id) token.id = user._id;
+      return token
+    },
+      async session({ session, token }) {
+        if(token?.id) session.user.id=token.id
+      return session
+    }
+},
   providers: [
     CredentialsProvider({
       name: 'Credentials',

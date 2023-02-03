@@ -8,7 +8,7 @@ import fetchHelper from "../../helpers/fetch-helper";
 import TaskListDetails from "./tasklist-section/tasklistDetails-component";
 export default function TaskList(props) {
   const [taskLists, setTaskLists] = useState([]);
-  const { data: session } = useSession();
+ 
   const currentTaskListType = useContext(CurrentTaskListTypeContext);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
