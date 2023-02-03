@@ -31,7 +31,7 @@ export default function TaskList(props) {
   const [moreFieldsToggle, setMoreFieldsToggle] = useState(false);
 
   return (
-      <div className="flex flex-col gap-2 pt-8" style={{ height: "100%" }}>
+      <div className="flex flex-col gap-2 pt-4" style={{ height: "100%" }}>
         <div className="">
           <button
             className="max-w-max bg-button-light p-1 px-2 rounded-lg text-center text-xs text-darktext font-semibold"
@@ -126,18 +126,12 @@ export default function TaskList(props) {
                             } text-white rounded-lg px-1 py-0.5 text-center `}
                           >
                             {tasklist.isActive ? (
-                              <span className="">Active</span>
+                              <span className="">Not Completed</span>
                             ) : (
                               <span className="bg-border-notactive">
                                 Completed
                               </span>
                             )}
-                          </span>
-                          <span className="bg-border-light rounded-lg px-1 py-0.5 text-center">
-                            imp
-                          </span>
-                          <span className="bg-border-light rounded-lg px-1 py-0.5 text-center">
-                            urgent
                           </span>
                         </div>
                         <div className="w-full text-sm p-1 font-semibold">

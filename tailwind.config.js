@@ -24,7 +24,7 @@ module.exports = {
         'sub-text' : '#71767b',
         'sub-text-dark' : '#393E46',
         'button-dark' : '#333333',
-        'button-light' : '#c44242',
+        'button-light' : '#fff',
         'border-light': '#eff3f4',
         'border-dark': '#222222',
         'border-notactive' : '#548CFF',

@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import fetchHelper from "../../../helpers/fetch-helper";
 import { AllTaskContext } from "../../context/AllTaskContext";
 import { TaskContext } from "../../context/TaskContext";
 
@@ -13,15 +14,8 @@ export default function EditTaskComponent () {
       );
     
       useEffect(() => {
-        // if(taskContext?.task?.taskName == undefined){
-        //   return
-        // }
-        // if(taskContext?.task?.description == undefined){
-        //   return
-        // }
         setUpdatedTaskName(taskContext?.task?.taskName);
         setUpdatedTaskDesc(taskContext?.task?.description);
-        console.log(taskContext?.task?.taskName)
       }, [taskContext.task]);
   
   
@@ -56,7 +50,7 @@ export default function EditTaskComponent () {
             return console.log(err);
           });
       }
-      
+      const [tagsInputBoxValue, setTagsInputBoxValue] = useState();
     const [tags, setTags] = useState([
       "imp",
       "urgent",
@@ -65,12 +59,45 @@ export default function EditTaskComponent () {
       "completed121",
       "not completed",
     ]);
+
+    function addNewTagsHandler() {
+      if (!tagsInputBoxValue) {
+        return;
+      }
+      setTags((prevTags) => [...prevTags, tagsInputBoxValue]);
+      document.getElementById("tagform").elements.namedItem("customtag").value =
+        "";
+    }
+
+
     return (
-        <div className="flex flex-col gap-4 items-center p-8">
-  
-        <div className="w-3/4 flex-grow flex flex-row flex-wrap gap-1 text-xs font-semibold text-darktext text-center px-2">
-            <p className="max-w-max p-1 flex-grow flex justify-center items-center bg-lighttext rounded-lg px-2">Add Tags -&#62;</p>
-            <br/>
+        <div className="flex flex-col gap-4 items-center justify-center">
+        <div className="w-2/3 flex flex-col gap-1 text-xs font-semibold text-darktext text-center px-2">
+        <form
+          id="tagform"
+          className="flex flex-row gap-1 text-sm font-semibold rounded-lg py-2"
+          onSubmit={(e) => {
+            e.preventDefault();
+            addNewTagsHandler();
+          }}
+        >
+          <input
+            className="flex-grow border border-border-light rounded-lg p-1 bg-transparent text-lighttext text-xs"
+            name="customtag"
+            type="text"
+            placeholder="Enter Custom Tag"
+            onChange={(e) => {
+              setTagsInputBoxValue(e.target.value);
+            }}
+          />
+          <button
+            className="flex-grow bg-button-light text-darktext text-xs rounded-lg"
+            type="submit"
+          >
+            Add
+          </button>
+        </form>
+            <div className="flex flex-row flex-wrap gap-2">
           {tags.map((tag) => {
             return (
               <span
@@ -81,9 +108,10 @@ export default function EditTaskComponent () {
               </span>
             );
           })}
+          </div>
         </div>
     <form
-      className={`w-3/4 flex-grow flex flex-col gap-2 font-semibold px-2 rounded-lg p-2 text-xs`}
+      className={`w-2/3 flex-grow flex flex-col gap-2 font-semibold px-2 rounded-lg p-2 text-xs`}
       onSubmit={(e) => {
         e.preventDefault();
         formSubmitHandler();

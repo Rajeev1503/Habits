@@ -10,22 +10,39 @@ const NavLinks = (props) => {
   const currentTaskListTypeContext = useContext(CurrentTaskListTypeContext);
   const taskListContext = useContext(TaskListContext);
   const backgroundColorContext = useContext(BackgroundColorContext);
+
+  function toggleColorMode() {
+    console.log(backgroundColorContext.backgroundColorState.mode);
+    if (backgroundColorContext.backgroundColorState.mode == "dark") {
+     return backgroundColorContext.backgroundColorDispatch({ type: "light" });
+    }
+    if (backgroundColorContext.backgroundColorState.mode == "light") {
+     return backgroundColorContext.backgroundColorDispatch({ type: "custom" });
+    }
+    if (backgroundColorContext.backgroundColorState.mode == "custom") {
+     return backgroundColorContext.backgroundColorDispatch({ type: "dark" });
+    }
+  }
+
   return (
     <div className="w-full flex flex-row justify-between items-center font-semibold text-sm">
       <div
-        className="text-center flex justify-start pl-8 items-center pt-2"
+        className="flex justify-center items-center"
         style={{ width: "12%" }}
       >
-        <Link href="/">
+        <Link href="/app">
           <h2>TODO APP</h2>
         </Link>
       </div>
-      <div className="border-l border-border-dark text-center flex justify-start px-4" style={{ width: "20%" }}>
+      <div
+        className="border-l border-r border-border-dark text-center flex justify-start px-4"
+        style={{ width: "20%" }}
+      >
         {currentTaskListTypeContext?.currentTaskListType?.name}
       </div>
 
       <div
-        className="border-l border-r border-border-dark text-center flex justify-between capitalize px-4"
+        className="text-center flex justify-between capitalize px-4"
         style={{ width: "43%" }}
       >
         <div>{taskListContext?.taskList?.taskListName}</div>
@@ -36,13 +53,11 @@ const NavLinks = (props) => {
         </div>
       </div>
 
-      <div className="" style={{ width: "25%" }}>
+      <div className="border-l border-border-dark" style={{ width: "25%" }}>
         <ul className="w-full flex flex-row justify-end items-center gap-2">
           <li
             className="text-xs flex gap-1 items-center border border-border-dark rounded-lg max-w-max p-1 cursor-pointer"
-            onClick={() => {
-              backgroundColorContext.backgroundColorDispatch({ type: "LIGHT" });
-            }}
+            onClick={toggleColorMode}
           >
             <p>
               <span>Color Mode : </span>
@@ -59,9 +74,6 @@ const NavLinks = (props) => {
           </li>
           <li
             className="text-xs flex gap-1 items-center border border-border-dark rounded-lg max-w-max p-1 cursor-pointer"
-            onClick={() => {
-              backgroundColorContext.backgroundColorDispatch({ type: "LIGHT" });
-            }}
           >
             <p>
               <span>Custom Color Picker </span>

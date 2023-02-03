@@ -20,18 +20,34 @@ export default function App({
 
   function backgroundColorReducer(backgroundColorState, action) {
     switch (action.type) {
-      case "LIGHT": {
+      case "dark": {
+        return     {
+          mode: "dark",
+          background:"bg-[#202020]",
+          foreground: "bg-[#111111]",
+          text: "text-[#e2e4e4]",
+          border: "border-[#252525]",
+          button: 'bg-#c44242'
+        }
+      }
+      case "light": {
         return {
           mode: "light",
-          mainbackground: "bg-[#FF0000]",
-          border: "green",
+          background:"bg-[#ffffff]",
+          foreground: "bg-[#f2f2f2]",
+          text: "text-[#111111]",
+          border: "border-[#111111]",
+          button: 'bg-[#c44242]'
         };
       }
-      case "CUSTOM": {
+      case "custom": {
         return {
           mode: "custom",
-          mainbackground: "blue",
-          border: "green",
+          background:"bg-[#202020]",
+          foreground: "bg-[#444444]",
+          text: "text-[#e2e4e4]",
+          border: "border-[#252525]",
+          button: 'bg-[#c44242]'
         };
       }
       default:
@@ -72,8 +88,9 @@ export default function App({
       mode: "dark",
       background:"bg-[#202020]",
       foreground: "bg-[#111111]",
-      border: "border-[#252525]",
       text: "text-[#e2e4e4]",
+      border: "border-[#252525]",
+      button: 'bg-[#c44242]'
     }
   );
 

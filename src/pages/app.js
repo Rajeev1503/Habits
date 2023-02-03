@@ -30,11 +30,9 @@ export default function MainApp(props) {
   }, [session]);
 
   const [rightPageMenuContent, setRightPageMenuContent] = useState();
-  const [buttonDisplay, setButtonDisplay] = useState("none");
   const [centerPageData, setCenterPageData] = useState(
     <div className="mt-8">
-      <h2 className="text-xl font-semibold">Welcome to TaskifyApp</h2>
-      <br />
+      <h2 className="text-xl font-semibold pb-4">Welcome to TaskifyApp</h2>
       <Image src={selecttasklist} alt="Select Task List" />
     </div>
   );
@@ -49,9 +47,7 @@ export default function MainApp(props) {
 
   function showTasksHandler() {
     return setCenterPageData(
-      <div>
         <Tasks setTaskHandler={() => {setTaskHandler();}}/>
-      </div>
     );
   }
 
@@ -71,7 +67,7 @@ export default function MainApp(props) {
     foreground : backgroundColorContext.backgroundColorState.foreground,
     border: backgroundColorContext.backgroundColorState.border,
     text: backgroundColorContext.backgroundColorState.text,
-
+    button : backgroundColorContext.backgroundColorState.button,
   }
 
   return (
@@ -81,11 +77,11 @@ export default function MainApp(props) {
   </Head>
   <div className={`${colorPalate.background} ${colorPalate.text}`} style={{height:'100vh'}}>
       <div
-        className="flex flex-col"
+        className="flex flex-col gap-1"
         style={{ height: "99vh", width: "99.2%", margin:'auto auto' }}
       >
         {/* Navigation section */}
-        <div className={`${toggleDarkMode?'bg-main-background-dark': 'bg-main-background-light'} p-2 rounded-lg`} style={{width:'100%',margin:'auto auto' }}>
+        <div className={`${colorPalate.foreground} p-2 rounded-lg`} style={{width:'100%',margin:'auto auto' }}>
           <Navigation/>
         </div>
         {/* Navigation section */}
@@ -94,30 +90,29 @@ export default function MainApp(props) {
 
           {/* Leftside section */}
           <div
-            className={`${toggleDarkMode?'bg-main-background-dark': 'bg-main-background-light'} p-2 rounded-lg`}
-            style={{ height: "90.5vh", width: "12%" }}
+            className={`${colorPalate.foreground} p-4 rounded-lg`}
+            style={{ height: "92vh", width: "12%" }}
             >
             <TaskListCategory renderTaskListPage={renderTaskListPage}/>
           </div>
           {/* Leftside section */}
 
           {/* tasklist section */}
-          <div className={`${toggleDarkMode?'bg-main-background-dark': 'bg-main-background-light'} p-2 rounded-lg`} style={{ height: "90.5vh", width: "20%"  }}>
+          <div className={`${colorPalate.foreground} p-4 rounded-lg`} style={{ height: "92vh", width: "20%"  }}>
             {taskListPageData}
           </div>
           {/* tasklist section */}
 
           {/* center page data */}
-          <div className={`${toggleDarkMode?'bg-main-background-dark': 'bg-main-background-light'} p-2 rounded-lg`} style={{ height: "90.5vh" , width: "43%" }}>
-              
-                  {centerPageData}
+          <div className={`${colorPalate.foreground} p-4 rounded-lg`} style={{ height: "92vh" , width: "43%" }}>
+            {centerPageData}
           </div>
           {/* center page data */}
 
           {/* Right Page Menu */}
           <div
-            className={`${toggleDarkMode?'bg-main-background-dark': 'bg-main-background-light'} flex flex-row justify-center items-center p-2 rounded-lg`}
-            style={{ height: "90.5vh", width: "25%"  }}
+            className={`${colorPalate.foreground} flex flex-row justify-center items-center p-2 rounded-lg`}
+            style={{ height: "92vh", width: "25%"  }}
           >
               <div className="mt-4 "><p>Chat System!!!</p></div>
           </div>
