@@ -1,11 +1,19 @@
+import { useSession } from "next-auth/react";
 import { useContext, useEffect, useState } from "react";
 import fetchHelper from "../../../helpers/fetch-helper";
 import { AllTaskContext } from "../../context/AllTaskContext";
+import { CurrentTaskListTypeContext } from "../../context/CurrentTaskListTypeContext";
 import { TaskContext } from "../../context/TaskContext";
+import { TaskListContext } from "../../context/TaskListContext";
 
 export default function EditTaskComponent () {
     const taskContext = useContext(TaskContext);
   const allTasksContext = useContext(AllTaskContext);
+  const { data: session } = useSession();
+  const taskListContext = useContext(TaskListContext);
+  const currentTaskListType = useContext(CurrentTaskListTypeContext);
+    
+ 
     const [updatedTaskName, setUpdatedTaskName] = useState(
         taskContext?.task?.taskName
       );
@@ -32,19 +40,16 @@ export default function EditTaskComponent () {
           payload: {
             id: taskContext.task._id,
             taskName: updatedTaskName,
-            description: updatedTaskDesc,
           },
         });
-        console.log(allTasksContext.allTasksState);
     
         //updating data in database
         let bodyData = {
-          taskName: updatedTaskName,
-          description: updatedTaskDesc,
+          taskName: updatedTaskName
         };
-        await fetchHelper(`/api/task/${taskContext.task._id}`, "PUT", bodyData)
+        await fetchHelper(`/api/${session?.user?.id}/${currentTaskListType?.currentTaskListType?._id}/tasklist/${taskListContext?.taskList?._id}/${taskContext?.task?._id}/modifytask`, "PUT", bodyData)
           .then((data) => {
-            return;
+            return console.log(JSON.parse(data));
           })
           .catch((err) => {
             return console.log(err);

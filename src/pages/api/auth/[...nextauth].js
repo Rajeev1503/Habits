@@ -11,11 +11,17 @@ export default NextAuth({
   callbacks: {
 
     async jwt({ token, user }) {
-      if(user?._id) token.id = user._id;
+      if(user?._id) {
+        token.id = user._id;
+        token.fullname = user.fullname
+      }
       return token
     },
       async session({ session, token }) {
-        if(token?.id) session.user.id=token.id
+        if(token?.id) {
+          session.user.id=token.id
+          session.user.fullname=token.fullname
+        }
       return session
     }
 },

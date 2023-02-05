@@ -33,8 +33,8 @@ export default function App({
       case "light": {
         return {
           mode: "light",
-          background:"bg-[#ffffff]",
-          foreground: "bg-[#f2f2f2]",
+          background:"bg-[#f2f2f2]",
+          foreground: "bg-[#ffffff]",
           text: "text-[#111111]",
           border: "border-[#111111]",
           button: 'bg-[#c44242]'
@@ -56,8 +56,11 @@ export default function App({
   }
   function allTasksReducer(allTasks, action) {
     switch (action.type) {
-      case "addtasks": {
+      case "alltasks": {
         return action.payload;
+      }
+      case "addNewTask": {
+        return [...allTasks, action.payload]
       }
       case "updateTask": {
         return allTasks.map((task) => {

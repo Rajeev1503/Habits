@@ -51,8 +51,7 @@ export default function MainApp(props) {
     );
   }
 
-  function renderTaskPage(tasklist) {
-    taskListContext.setTaskList(tasklist);
+  function renderTaskPage() {
     showTasksHandler();
   }
 
@@ -98,7 +97,7 @@ export default function MainApp(props) {
           {/* Leftside section */}
 
           {/* tasklist section */}
-          <div className={`${colorPalate.foreground} p-4 rounded-lg`} style={{ height: "92vh", width: "20%"  }}>
+          <div className={`${colorPalate.foreground} p-2 rounded-lg`} style={{ height: "92vh", width: "20%"  }}>
             {taskListPageData}
           </div>
           {/* tasklist section */}
@@ -137,7 +136,7 @@ export async function getServerSideProps(ctx) {
     };
   }
   await dbConnect();
-  const data = await fetchHelper(`${NEXT_URL}/api/${session.user.id}/tasklisttypes`, "GET");
+  const data = await fetchHelper(`${NEXT_URL}/api/${session.user.id}/tasklistcategory`, "GET");
   const allTaskListCategory= JSON.parse(data);
 
   return {

@@ -7,19 +7,37 @@ import { TaskListCategoryContext } from "../context/TaskListCategoryContext";
 const TaskListCategory = (props) => {
   const taskListType = useContext(TaskListCategoryContext);
   const currentTaskListType = useContext(CurrentTaskListTypeContext);
-  const {data: session} = useSession();
-  function addNewTaskListCategory() {
+  const { data: session } = useSession();
+  
+
+  async function addNewTaskListCategory() {
     if (!newTaskListCategory) {
       return;
     }
-    fetchHelper(`/api/${session?.user?.id}/addtasklistcategory`, 'POST', newTaskListCategory)
-    taskListType.setAllTaskListType((prevTags) => [...prevTags, {taskListCategoryName: newTaskListCategory}]);
+    const newAddedTaskListCategory = await fetchHelper(
+      `/api/${session?.user?.id}/tasklistcategory`,
+      "POST",
+      newTaskListCategory
+    );
+    taskListType.setAllTaskListType((prevCategories)=>[...prevCategories, JSON.parse(newAddedTaskListCategory)]);
     setNewTaskListCategory('');
   }
-  const [newTaskListCategory, setNewTaskListCategory] = useState();
+  async function taskListCategoryDeleteHandler(id) {
+    if (!id) {
+      return;
+    }
+    await fetchHelper(
+      `/api/${session?.user?.id}/${id}/editdeletetasklistcategory`,
+      "DELETE"
+    );
+    taskListType.setAllTaskListType((taskListCategory) => {return taskListCategory.filter((item) =>item._id !== id);
+    });
+  }
+  const [newTaskListCategory, setNewTaskListCategory] = useState("");
+
 
   return (
-    <div className="w-full flex flex-col justify-center items-center overflow-y-auto h-full text-sm">
+    <div className="w-full flex flex-col justify-center items-center overflow-y-auto overflow-x-hidden h-full text-sm">
       <div className="w-full text-xs font-semibold text-darktext text-center pb-4">
         <form
           id="tagform"
@@ -47,16 +65,32 @@ const TaskListCategory = (props) => {
             return (
               <li
                 key={taskListCategory._id}
-                className="block border border-border-dark rounded-lg px-2 py-1 cursor-pointer"
-                onClick={() => {
-                  currentTaskListType.setCurrentTaskListType();
-                  props.renderTaskListPage();
-                }}
+                className="block border border-border-dark rounded-lg px-2 py-1 "
               >
-                <p className="hover:scale-105">{taskListCategory.taskListCategoryName}</p>
+                <p className="w-full flex flex-row justify-between items-center">
+                  <span
+                    className="hover:scale-105 cursor-pointer w-4/5"
+                    onClick={() => {
+                      currentTaskListType.setCurrentTaskListType(
+                        taskListCategory
+                      );
+                      props.renderTaskListPage();
+                    }}
+                  >
+                    {taskListCategory.taskListCategoryName}
+                  </span>
+                  <span
+                    className="cursor-pointer opacity-20"
+                    onClick={() =>
+                      taskListCategoryDeleteHandler(taskListCategory?._id)
+                    }
+                  >
+                    x
+                  </span>
+                </p>
               </li>
             );
-          })}
+          }).reverse()}
         </ul>
       </div>
     </div>

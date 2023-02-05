@@ -2,7 +2,7 @@ const Card = (props) => {
 
   return (
     <>
-      <div className={`p-2 flex flex-col items-center`}>
+      <div className={`flex flex-col items-center`}>
         {props.children}
       </div>
     </>

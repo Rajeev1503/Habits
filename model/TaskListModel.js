@@ -7,7 +7,6 @@ const TaskListSchema = new mongoose.Schema({
     },
     description: {
         type: String,
-        required: true
     },
     extraFields: [{
         extraFieldName: {
@@ -32,9 +31,13 @@ const TaskListSchema = new mongoose.Schema({
     creator: [{
         type:mongoose.Types.ObjectId,
         ref:'User',
+    }],
+    taskListCategory: [{
+        type:mongoose.Types.ObjectId,
+        ref:'User',
     }]
 })
 
-const TaskList = mongoose.models.Tasklist || mongoose.model('Tasklist', TaskListSchema);
+const TaskList = mongoose.models.taskList || mongoose.model('taskList', TaskListSchema);
 
 export default TaskList;

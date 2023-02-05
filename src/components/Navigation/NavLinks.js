@@ -27,11 +27,11 @@ const NavLinks = (props) => {
   return (
     <div className="w-full flex flex-row justify-between items-center font-semibold text-sm">
       <div
-        className="flex justify-center items-center"
+        className="flex justify-start items-center"
         style={{ width: "12%" }}
       >
         <Link href="/app">
-          <h2>TODO APP</h2>
+          <h2 className="capitalize pl-2">{`${session?.user?.fullname}'s Workplace`}</h2>
         </Link>
       </div>
       <div
@@ -46,7 +46,8 @@ const NavLinks = (props) => {
         style={{ width: "43%" }}
       >
         <div>{taskListContext?.taskList?.taskListName}</div>
-        <div>
+        <div className="flex flex-row gap-4">
+        <div className={`${taskListContext?.taskList?'': 'hidden'} text-xs font-semibold border border-border-dark px-2 rounded-lg flex items-center`}><button>+ Invite Members</button></div>
           <div className="text-xs border border-border-dark rounded-lg cursor-pointer max-w-full p-1 px-2">
             <FaBell size={16} />
           </div>

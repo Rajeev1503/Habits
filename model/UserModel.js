@@ -1,5 +1,5 @@
-import mongoose from 'mongoose' ;
-import bcrypt from 'bcryptjs' ;
+import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 
 const User_Schema = new mongoose.Schema({
   fullname: {
@@ -25,28 +25,25 @@ const User_Schema = new mongoose.Schema({
     default: "user",
   },
 
-  taskListCategory : [{
-    taskListCategoryName: {
-        type:String
-    },
-
-    taskList : [{
-        type: mongoose.Types.ObjectId,
-        ref: "taskList"
-    }]
-  }],
-
-  assignedTaskListCategory: [{
-
-    assignedTaskListCategoryName: {
-        type:String
-    },
-
-    taskList: {
+  taskListCategory: [
+    {
       type: mongoose.Types.ObjectId,
-      ref: "taskList",
-    }
-}]
+      ref: "Tasklistcategory",
+    },
+  ],
+
+  assignedTaskListCategory: [
+    {
+      assignedTaskListCategoryName: {
+        type: String,
+      },
+
+      taskList: {
+        type: mongoose.Types.ObjectId,
+        ref: "taskList",
+      },
+    },
+  ],
 });
 
 User_Schema.pre("save", async function (next) {
