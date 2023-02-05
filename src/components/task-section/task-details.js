@@ -28,13 +28,13 @@ const TaskDetails = () => {
 
   return (
     <div
-      className={` text-xs font-semibold mt-4 bg-[#151515] rounded-lg overflow-hidden`}
+      className={` text-xs font-semibold mt-4 bg-[#151515] overflow-hidden`}
     >
-      <div className="flex flex-row justify-between items-center text-center bg-main-background-dark text-lighttext font-semibold text-xs">
+      <div className=" border-t border-b border-accent-background-dark flex flex-row justify-between items-center text-center bg-main-background-dark text-lighttext font-semibold text-xs">
         <div
           className={`${
             isAtInfo ? "bg-[#151515]" : ""
-          } flex-grow p-1 cursor-pointer border border-[#151515]`}
+          } flex-grow p-1 cursor-pointer`}
           onClick={() => {
             taskComponentDispatch({type:'info', payload:<InfoTaskComponent/>});
             setDisplayExpanded(true);
@@ -45,7 +45,7 @@ const TaskDetails = () => {
         <div
           className={`${
             !isAtInfo ? "bg-[#151515]" : ""
-          } flex-grow p-1 cursor-pointer border border-[#151515]`}
+          } flex-grow p-1 cursor-pointer `}
           onClick={() => {
             taskComponentDispatch({type:'edit', payload:<EditTaskComponent/>});
             setDisplayExpanded(true);
@@ -54,7 +54,7 @@ const TaskDetails = () => {
           Edit
         </div>
       </div>
-      <div className={`${displayExpanded ? "" : "hidden"} p-2`}>
+      <div className={` p-2`}>
         <br />
         {taskComponentState}
       </div>

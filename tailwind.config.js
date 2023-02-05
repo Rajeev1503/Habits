@@ -32,7 +32,7 @@ module.exports = {
         'graybackground' : '#ededed'
       },
       fontSize: {
-        'xxs': '0.63rem',
+        'xxs': '0.6rem',
     },
     screens: {
       'mobile': '320px',

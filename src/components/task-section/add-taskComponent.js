@@ -28,6 +28,8 @@ export default function AddTaskComponent() {
       .catch((err) => {
         console.log(err + ": error");
       });
+
+      addTaskInputValue.current.value = ''
   }
 
   const addTaskInputValue = useRef();

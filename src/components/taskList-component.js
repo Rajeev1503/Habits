@@ -1,13 +1,18 @@
 import { useSession } from "next-auth/react";
 import { useContext, useEffect, useRef, useState } from "react";
 import { CurrentTaskListTypeContext } from "../context/CurrentTaskListTypeContext";
-import { FaSquare, FaTrash, FaPenSquare, FaCheck } from "react-icons/fa";
+import {
+  FaSquare,
+  FaTrash,
+  FaPenSquare,
+  FaCheck,
+  FaAngleDown,
+} from "react-icons/fa";
 import { TaskListContext } from "../context/TaskListContext";
 import fetchHelper from "../../helpers/fetch-helper";
 import Card from "./card";
 
 export default function TaskList(props) {
-
   const { data: session } = useSession();
   const [taskLists, setTaskLists] = useState([]);
   const currentTaskListType = useContext(CurrentTaskListTypeContext);
@@ -22,11 +27,13 @@ export default function TaskList(props) {
     fetchHelper(
       `/api/${session?.user?.id}/${currentTaskListType?.currentTaskListType?._id}/tasklists`,
       "GET"
-    ).then((data) => {
+    )
+      .then((data) => {
         const allTaskLists = JSON.parse(data);
         setTaskLists(allTaskLists);
         return setLoading(false);
-      }).catch((err) => {
+      })
+      .catch((err) => {
         console.log(err + ": error");
       });
   }
@@ -41,10 +48,11 @@ export default function TaskList(props) {
       ...prevTaskLists,
       JSON.parse(resultAddTaskList),
     ]);
+    setAddTaskListToggle(false);
   }
 
   async function editTasklistHandler(tasklistId) {
-    if(!editedTasklistName.current.value) return;
+    if (!editedTasklistName.current.value) return;
     const resultEditedTaskList = await fetchHelper(
       `/api/${session?.user?.id}/${currentTaskListType?.currentTaskListType?._id}/tasklist/${tasklistId}/editdeletetasklist`,
       "PUT",
@@ -58,11 +66,11 @@ export default function TaskList(props) {
     );
   }
 
-  const editedTasklistName = useRef();
+  let editedTasklistName = useRef();
   const taskListNameInputValue = useRef();
   const [addTaskListToggle, setAddTaskListToggle] = useState(false);
   const [moreFieldsToggle, setMoreFieldsToggle] = useState(false);
-  const [editable, setEditable] = useState(false)
+  const [editable, setEditable] = useState(false);
 
   return (
     <div className="flex flex-col gap-2 pt-4" style={{ height: "100%" }}>
@@ -165,6 +173,15 @@ export default function TaskList(props) {
           </form>
         </div>
       </div>
+      <div className="px-2 py-1 flex justify-between items-center bg-accent-background-dark rounded-lg text-xs font-semibold">
+        <span>Colors Significance</span>
+        <span className="text-gray-500">{<FaSquare />}</span>
+        <span className="text-pink-500">{<FaSquare />}</span>
+        <span className="text-red-500">{<FaSquare />}</span>
+        <span className="text-blue-500">{<FaSquare />}</span>
+        <span className="text-green-500">{<FaSquare />}</span>
+        <span>{<FaAngleDown />}</span>
+      </div>
 
       <p className={`${loading ? "border__loading" : ""} w-full`}></p>
       <div className="scrollbarfeature overflow-y-scroll flex justify-center items-center">
@@ -176,10 +193,6 @@ export default function TaskList(props) {
                   <div
                     className=""
                     key={tasklist._id}
-                    onClick={() => {
-                      taskListContext.setTaskList(tasklist);
-                      props.renderTaskPage();
-                    }}
                   >
                     <div
                       className={`cursor-pointer border border-border-dark rounded-lg ${
@@ -190,7 +203,10 @@ export default function TaskList(props) {
                     >
                       <Card>
                         <div className="w-full flex flex-row justify-between items-center text-sm p-2 font-semibold">
-                          <div className="w-3/5 flex gap-2 items-center">
+                          <div className="w-3/5 flex gap-2 items-center" onClick={() => {
+                      taskListContext.setTaskList(tasklist);
+                      props.renderTaskPage();
+                    }}>
                             <span
                               className={`${
                                 tasklist.isActive
@@ -200,20 +216,44 @@ export default function TaskList(props) {
                             >
                               {<FaSquare />}
                             </span>
-                            <form onSubmit={(e)=>{e.preventDefault(); editTasklistHandler(tasklist._id)}}>
+                            <form
+                              onSubmit={(e) => {
+                                e.preventDefault();
+                                editTasklistHandler(tasklist._id);
+                              }}
+                            >
                               <input
                                 className="rounded-lg p-1 bg-transparent"
-                                value={tasklist.taskListName}
-                                disabled={!editable}
+                                defaultValue={tasklist.taskListName}
+                                disabled
                                 ref={editedTasklistName}
+                                onClick={() => {
+                                  if (editedTasklistName.current.disabled)
+                                    return;
+                                  taskListContext.setTaskList(tasklist);
+                                  props.renderTaskPage();
+                                }}
+                                onBlur={()=>{editedTasklistName.current.disabled=true; setEditable(false)}}
                               />
                             </form>
                           </div>
                           <div className="flex items-center gap-2">
-                            <span
-                              className="opacity-10 hover:opacity-70"
-                            >
-                              {!editable?<FaPenSquare onClick={() =>{setEditable(!editable);return editedTasklistName.current.focus();}}/> : <FaCheck onClick={()=>editTasklistHandler(tasklist._id)}/>}
+                            <span className="opacity-10 hover:opacity-70">
+                              {!editable ? (
+                                <FaPenSquare
+                                  onClick={() => {
+                                    setEditable(!editable);
+                                    editedTasklistName.current.disabled = false;
+                                    editedTasklistName.current.focus();
+                                  }}
+                                />
+                              ) : (
+                                <FaCheck
+                                  onClick={() =>
+                                    editTasklistHandler(tasklist._id)
+                                  }
+                                />
+                              )}
                             </span>
                             <span
                               className="opacity-10 hover:opacity-70"
