@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <Layout title="Signin">
       <Head>
-        <title>Taskify</title>
+        <title>Habits</title>
       </Head>
       <div
         className="bg-main-background-dark flex flex-col justify-center items-center"
