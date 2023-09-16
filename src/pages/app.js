@@ -72,7 +72,7 @@ export default function MainApp(props) {
   return (
     <Layout title="Home" pageHeading="Team Tasks">
         <Head>
-    <title>TaskifyApp</title>
+    <title>Habits</title>
   </Head>
   <div className={`${colorPalate.background} ${colorPalate.text}`} style={{height:'100vh'}}>
       <div
